@@ -1,0 +1,74 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 7.11.2014
+    Author     : PLOJOUX Robin
+*/
+
+body {
+    width: 100%;
+    height: 100%;
+    background-color: lightgray;
+}
+
+#page {
+    width: 80%;
+    height: 80%;
+    margin: auto;
+    margin-top: 30px;
+    background-color: menu;
+    border-radius: 30px;
+    box-shadow: 0px 0px 200px lightskyblue;
+}
+
+header {
+    width: 100%;
+    height: 100px;
+    border-radius: 30px 30px 0px 0px;
+    background-color: menu;
+}
+
+section {
+    width: 100%;
+    height: 600px;
+    background-color: azure;
+}
+
+
+
+#inscription {
+    float: right;
+}
+
+.espace_login {
+    text-align: center;
+    margin-top: 5px;
+}
+
+.panel-body {
+    text-align: center;
+}
+footer {
+    width: 100%;
+    height: 50px;
+    border-radius: 0px 0px 30px 30px;
+    border-top: 1px solid lightgray;
+    background-color: menu;
+    
+}
+
+.footer_infos {
+    width : 33%;
+    float: left;
+    text-align: center;
+    padding-top: 10px;
+    font-size: 9pt;
+}
+
+
+
+
+ 
