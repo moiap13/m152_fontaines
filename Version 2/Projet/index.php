@@ -1,21 +1,94 @@
 <?php
+session_start();
+include 'pages/fonctions.php';
+
+
 $mode = 'Login';
 $mode_lien = 'Inscription';
-$input = "";
+
+$input[0] = '<input type="text" name="tbx_uid" placeholder="Nom d\'utilisateur" class="espace_login"/>';
+$input[1] = '<input type="password" name="tbx_pwd" placeholder="Mot de passe" class="espace_login"/>';
+$input[2] = "";
+
+
 $taille_login = "180px";
 $petite_image = 'glyphicon glyphicon-send';
 
+$bdd = connexion('M152_Fontaines', 'localhost', 'root', 'root');
+        
 if(isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'Inscription')
 {
     $mode = 'Inscription';
-    $input = '<input type="password" name="tbx_confirm" placeholder="Confirmer MDP" class="espace_login"/>';
+    $input[2] = '<input type="password" name="tbx_confirm" placeholder="Confirmer MDP" class="espace_login"/>';
     $mode_lien = 'Login';
     $taille_login = "210px";
     $petite_image = 'glyphicon glyphicon-pencil';
 }
 
+$input[3] = '<input type="submit" name="btn_envoyer" value="'.$mode.'" class="espace_login"/> <span class="<?php echo $petite_image; ?>"></span>';
+$input[4] = ' <p><a id="inscription" href="index.php?mode='.$mode_lien.'" >'.$mode_lien.'</a></p>';
 
+if((isset($_REQUEST["btn_envoyer"]) && $_REQUEST['mode'] == 'Login'))
+{
+    $pseudo = (isset($_REQUEST["tbx_uid"])?$_REQUEST["tbx_uid"]:"");
+    $mdp = (isset($_REQUEST["tbx_pwd"])?$_REQUEST["tbx_pwd"]:"");
+    
+    $Login = Login($pseudo, $mdp, $bdd);
+            
+    if(!empty($Login))
+    { 
+        $user = recupere_users_par_id($Login[0][0], $bdd);
 
+        $_SESSION["ID"] = $Login[0][0];
+        $_SESSION["UID"] = $user[0][0];
+        $_SESSION["ADMIN"] = $user[0][1];
+        $_SESSION["CONN"] = true;
+    }
+    else
+    {
+        echo '<script type="text/javascript">alert("Nom d\'utilisateur ou mot de passe incorect");</script>';
+        $input[0] = '<input type="text" name="tbx_uid" placeholder="Nom d\'utilisateur" class="espace_login" value="' . $pseudo.'"/>';
+        $input[1] = '<input type="password" name="tbx_pwd" placeholder="Mot de passe" class="espace_login" value="' . $mdp.'"/>';
+        $_SESSION["CONN"] = false;
+    }
+}
+
+if(isset($_SESSION["CONN"]) && $_SESSION["CONN"])
+{
+    $mode = "connecté";
+    $mode_lien = "Déconnexion";
+    
+    $input[0] = '<p>Bienvenue <span id="pseudo">' . $_SESSION["UID"] . "</span></p>";
+        
+    if( $_SESSION["ADMIN"])
+        $input[1] = '<p>Admin</p>';
+    else
+        $input[1] = '<p>Pas Admin</p>'; 
+
+    $input[2] = "<p></p>";
+    $input[3] = "<p></p>";
+    $input[4] = ' <p><a id="inscription" href="./pages/connexion/deconnexion.php" >'.$mode_lien.'</a></p>';
+}
+
+if(isset($_REQUEST["btn_envoyer"]) && $_REQUEST['mode'] == 'Inscription')
+{
+    $pseudo = (isset($_REQUEST["tbx_uid"])?$_REQUEST["tbx_uid"]:"");
+    $mdp = (isset($_REQUEST["tbx_pwd"])?$_REQUEST["tbx_pwd"]:"");
+    $mdp_2 = (isset($_REQUEST["tbx_confirm"])?$_REQUEST["tbx_confirm"]:"");
+    
+    if($mdp === $mdp_2)
+    {
+        ajout_personne($pseudo, $mdp, $bdd);
+        header("Location: index.php?mode=Login&tbx_uid=$pseudo&tbx_pwd=$mdp&btn_envoyer=Login");
+    }
+    else
+    {
+        echo '<script type="text/javascript">alert("Les deux mots de passes ne concordent pas");</script>';
+        $input[0] = '<input type="text" name="tbx_uid" placeholder="Nom d\'utilisateur" class="espace_login" value="' . $pseudo.'"/>';
+        $input[1] = '<input type="password" name="tbx_pwd" placeholder="Mot de passe" class="espace_login" value="' . $mdp.'"/>';
+        $input[2] = '<input type="password" name="tbx_pwd" placeholder="Mot de passe" class="espace_login" value="' . $mdp_2.'"/>';
+    }
+}
 ?>
 <!DOCTYPE html>
 <!--
@@ -45,8 +118,14 @@ Version : 2.0
             </header>
             <nav>
                 <ul class="nav nav-tabs" role="tablist">
+<<<<<<< Updated upstream
                     <li role="presentation" class="active"><a href="./index.php">Accueil <span class="glyphicon glyphicon-home"></span></a></li>
                     <li role="presentation"><a href="./pages/gestionFontaines.php">Gestion fontaines</a></li>
+=======
+                    <li role="presentation" class="active"><a href="./index.html">Accueil <span class="glyphicon glyphicon-home"></span></a></li>
+                    <li role="presentation"><a href="test.php">Page1</a></li>
+                    <li role="presentation"><a href="#">Page2</a></li>
+>>>>>>> Stashed changes
                 </ul>
             </nav>
             <section>
@@ -54,12 +133,14 @@ Version : 2.0
                 <aside id="login" class="panel panel-info" >
                     <div class="panel-heading"><span class="glyphicon glyphicon-user"></span> <?php echo $mode; ?></div>
                     <div class="panel-body" >
-                        <form method="post" action="#">
-                            <input type="text" name="tbx_uid" placeholder="Nom d'utilisateur" class="espace_login"/>
-                            <input type="password" name="tbx_pwd" placeholder="Mot de passe" class="espace_login"/>
-                            <?php echo $input; ?>
-                            <input type="submit" name="btn_envoyer" value="<?php echo $mode; ?>" class="espace_login"/> <span class="<?php echo $petite_image; ?>"></span>
-                            <p><a id="inscription" href="index.php?mode=<?php echo $mode_lien; ?>" ><?php echo $mode_lien; ?></a></p>
+                        <form method="post" action="index.php?mode=<?php echo $mode; ?>">
+                            <?php 
+                                echo $input[0];
+                                echo $input[1];
+                                echo $input[2];
+                                echo $input[3];
+                                echo $input[4];
+                            ?>
                         </form>   
                     </div>
                 </aside>
