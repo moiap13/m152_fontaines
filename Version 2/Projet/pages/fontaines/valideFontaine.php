@@ -14,7 +14,9 @@ Version : 2.0
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="../../css/bootstrap/css/bootstrap.css"> 
-        <link rel="stylesheet" href="../../css/style.css"> 
+        <link rel="stylesheet" href="../../css/style.css">
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUVlw-hCn3f0Z2-hyEyjZdtzt8XvJLvV4"></script>
+        <script type="text/javascript" src="../../javascript/googleMaps.js"></script> 
     </head>
     <body>
         <div id="page">
@@ -27,7 +29,7 @@ Version : 2.0
             </nav>
             <section>
                 <div class="afficheCoord"></div>  
-                <div class='map'></div> 
+                <div id='map-canvas'></div> 
                 <div class="mapFooter"></div>     
             </section>
             <footer>
