@@ -118,14 +118,8 @@ Version : 2.0
             </header>
             <nav>
                 <ul class="nav nav-tabs" role="tablist">
-<<<<<<< Updated upstream
                     <li role="presentation" class="active"><a href="./index.php">Accueil <span class="glyphicon glyphicon-home"></span></a></li>
                     <li role="presentation"><a href="./pages/gestionFontaines.php">Gestion fontaines</a></li>
-=======
-                    <li role="presentation" class="active"><a href="./index.html">Accueil <span class="glyphicon glyphicon-home"></span></a></li>
-                    <li role="presentation"><a href="test.php">Page1</a></li>
-                    <li role="presentation"><a href="#">Page2</a></li>
->>>>>>> Stashed changes
                 </ul>
             </nav>
             <section>
