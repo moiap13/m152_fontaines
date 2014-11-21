@@ -26,11 +26,11 @@ Version : 2.0
 -->
 <html>
     <head>
-        <title>Maquette HTML5 Bootstrap</title>
+        <title>J'ai soif!</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
-        <link rel="stylesheet" href="css/bootstrap/css/bootstrap.css"> 
-        <link rel="stylesheet" href="css/style.css"> 
+        <link rel="stylesheet" href="./css/bootstrap/css/bootstrap.css"> 
+        <link rel="stylesheet" href="./css/style.css"> 
         <style>
             #login {
                 float: right;
@@ -45,12 +45,12 @@ Version : 2.0
             </header>
             <nav>
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="./index.html">Accueil <span class="glyphicon glyphicon-home"></span></a></li>
-                    <li role="presentation"><a href="#">Page1</a></li>
-                    <li role="presentation"><a href="#">Page2</a></li>
+                    <li role="presentation" class="active"><a href="./index.php">Accueil <span class="glyphicon glyphicon-home"></span></a></li>
+                    <li role="presentation"><a href="./pages/gestionFontaines.php">Gestion fontaines</a></li>
                 </ul>
             </nav>
             <section>
+                
                 <aside id="login" class="panel panel-info" >
                     <div class="panel-heading"><span class="glyphicon glyphicon-user"></span> <?php echo $mode; ?></div>
                     <div class="panel-body" >
@@ -63,6 +63,9 @@ Version : 2.0
                         </form>   
                     </div>
                 </aside>
+                
+                <div id="btn_afficheFontaine"><a class="modlinks" href="./pages/fontaines/afficheFontaines.php">J'ai soif!</a></div>
+                <div id="btn_ajoutFontaine"><a class="modlinks" href="./pages/fontaines/ajoutFontaine.php">Ajouter une fontaine</a></div>
             </section>
             <footer>
                 <div class="footer_infos">Robin Plojoux / Antonio Pisanello</div>
