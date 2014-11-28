@@ -77,25 +77,30 @@ footer {
 #btn_afficheFontaine {
     height: 100px;
     width: 200px;
-    margin-top: 150px;
-    margin-left: 200px;
     padding-top: 35px;
     background-color: lightblue;
-    border-radius: 30px;
-    padding-left: 45px;
+    border-radius: 38px;
+    padding-left: 54px;
+    margin-bottom: 5px;
     float: left;
 }
 
 #btn_ajoutFontaine {
     height: 100px;
     width: 200px;
-    margin-top: 60px;
-    margin-left: 200px;
-    padding-top: 38px;
-    padding-left: 35px;
+    padding-top: 22px;
+    padding-left: 38px;
     background-color: lightblue;
     border-radius: 30px;
     float: left;
+}
+
+.conteneur_btn {
+    width: 212px;
+    height: 204px;
+    margin: auto;
+    padding-top: 160px;
+    
 }
 
 .modlinks { 

@@ -139,8 +139,10 @@ Version : 2.0
                     </div>
                 </aside>
                 
-                <div id="btn_afficheFontaine"><a class="modlinks" href="./pages/fontaines/afficheFontaines.php">J'ai soif!</a></div>
-                <div id="btn_ajoutFontaine"><a class="modlinks" href="./pages/fontaines/ajoutFontaine.php">Ajouter une fontaine</a></div>
+                <div class="conteneur_btn">
+                  <div id="btn_afficheFontaine"><a class="modlinks" href="./pages/fontaines/afficheFontaines.php">J'ai soif!</a></div>
+                  <div id="btn_ajoutFontaine"><a class="modlinks" href="./pages/fontaines/ajoutFontaine.php">Ajouter une fontaine</a></div>
+                </div>
             </section>
             <footer>
                 <div class="footer_infos">Robin Plojoux / Antonio Pisanello</div>
