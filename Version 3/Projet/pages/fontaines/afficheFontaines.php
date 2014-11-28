@@ -1,5 +1,7 @@
 <?php
-
+    include "../fonctions.php";
+    
+    $bdd = connexion('M152_Fontaines', 'localhost', 'root', 'root');
 ?>
 <!DOCTYPE html>
 <!--
@@ -36,6 +38,7 @@ Version : 2.0
                 <div class="footer_infos">CFPT-I 2014-2015 <span class="glyphicon glyphicon-copyright-mark"></span></div>
                 <div class="footer_infos">Module 152</div>
             </footer>
+            <?php echo instancier_tableau_javascript(recupere_fontaines($bdd)) ?>
         </div>
     </body>
 </html>
