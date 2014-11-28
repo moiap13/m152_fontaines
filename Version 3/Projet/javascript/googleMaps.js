@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 var myLatlng = new google.maps.LatLng(-34.397,150.644);
-
+var rayon=3000;
 function include(fileName){
 document.write("<script type='text/javascript' src='"+fileName+"'></script>" );
 }
@@ -19,25 +19,32 @@ function initialize() {
         };
         var map = new google.maps.Map(document.getElementById('map-canvas'),
             mapOptions);
-            var array = recupere_lat_lng();
-        initialise_tableau_marker(array, map);
+        var array = recupere_lat_lng();
+        
 
         // Try HTML5 geolocation
-          if(navigator.geolocation) {
-         
+        if(navigator.geolocation) {
+
         
             navigator.geolocation.getCurrentPosition(function(position) {
-              var pos = new google.maps.LatLng(position.coords.latitude,
-                                               position.coords.longitude);
+            var pos = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+            initialise_tableau_marker(array, map, rayon, pos);
+            var Localisation = new google.maps.Marker({
+              map: map,
+              position: pos,
+              //content: 'Votre position',
+              icon: "../../img/Marker.png"
 
-              var infowindow = new google.maps.InfoWindow({
-                map: map,
-                position: pos,
-                content: 'Votre position'
-              });
+            });
+            
+            var monCercle = new google.maps.Circle({
+                    map: map,
+                    center: pos,
+                    radius: rayon
+                        
+            });
 
               map.setCenter(pos);
-              place_marker(pos, 'test', map);
             }, function(err) {
                 console.log( err.code + " " + err.message);
               handleNoGeolocation(true);
@@ -54,6 +61,8 @@ function initialize() {
           } else {
             var content = 'Error: Votre navigateur ne sfonctionne pas avec la geolocation.';
           }
+          
+        
 
 };
 
@@ -81,18 +90,24 @@ function recupere_lat_lng()
         
     return array;
 }
-function initialise_tableau_marker(array, map)
+function initialise_tableau_marker(array, map, _rayon, point_localisation)
 {
     for(var i =0; i<array.length;i++)
     {
-        var myMarker = new google.maps.Marker(
-        {
-            position    : new google.maps.LatLng(array[i][0],array[i][1]), 
-            Map         : map, 
-            title	: "Fontaine" 
-        }); 
+        var latlng = new google.maps.LatLng(array[i][0], array[i][1]);
         
-        alert(array[i][0]);
+        var distance = google.maps.geometry.spherical.computeDistanceBetween(point_localisation, latlng);
+        
+        if(distance <= _rayon)
+        {
+            var myMarker = new google.maps.Marker(
+            {
+                position    : new google.maps.LatLng(array[i][0],array[i][1]), 
+                Map         : map, 
+                title	: "Fontaine",
+                icon: "../../img/icon.png"
+            });
+        }
     }
     
     

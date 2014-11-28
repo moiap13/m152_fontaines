@@ -17,7 +17,7 @@ Version : 2.0
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="../../css/bootstrap/css/bootstrap.css"> 
         <link rel="stylesheet" href="../../css/style.css">
-        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUVlw-hCn3f0Z2-hyEyjZdtzt8XvJLvV4"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=geometry"></script>
         <script type="text/javascript" src="../../javascript/googleMaps.js"></script> 
     </head>
     <body>
