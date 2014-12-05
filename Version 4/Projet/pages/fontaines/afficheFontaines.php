@@ -17,8 +17,10 @@ Version : 2.0
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="../../css/bootstrap/css/bootstrap.css"> 
         <link rel="stylesheet" href="../../css/style.css">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=geometry"></script>
         <script type="text/javascript" src="../../javascript/googleMaps.js"></script> 
+        <script type="text/javascript" src="../../javascript/afficheFontaines.js"></script>
     </head>
     <body>
         <div id="page">
@@ -31,7 +33,10 @@ Version : 2.0
             </nav>
             <section>
                 <div id='map-canvas' style="height: 80%;"></div> 
-                <div class='mapFooter'></div>
+                <div class='mapFooter'>
+                    <div class="line_map_footer"><span id="nb_fontaines"></span></div>
+                    <div class="line_map_footer"><span id="nom_rue"></span></div>
+                </div>
             </section>
             <footer>
                 <div class="footer_infos">Robin Plojoux / Antonio Pisanello</div>

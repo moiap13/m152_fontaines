@@ -15,8 +15,10 @@ Version : 2.0
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="../../css/bootstrap/css/bootstrap.css"> 
         <link rel="stylesheet" href="../../css/style.css"> 
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUVlw-hCn3f0Z2-hyEyjZdtzt8XvJLvV4"></script>
         <script type="text/javascript" src="../../javascript/googleMaps.js"></script> 
+        <script type="text/javascript" src="../../javascript/ajoutFontaines.js"></script>
     </head>
     <body>
         <div id="page">
@@ -28,9 +30,19 @@ Version : 2.0
                 </ul>
             </nav>
             <section>
-                <div class="afficheCoord"></div>  
-                <div id='map-canvas'></div> 
-                <div class="mapFooter"></div> 
+                <form method="" action="">
+                    <div class="afficheCoord">
+                        <label>Lat : </label><input type="number" name="tbx_Lat" value="" id="tbx_lat" />
+                        <label>Lng : </label><input type="number" name="tbx_lng" value="" id="tbx_lng" />
+                    </div>  
+                    <div id='map-canvas' style="height: 80%;"></div> 
+                    <div class="mapFooter">
+                        <div class="line_map_footer"><span id="nom_rue"></span></div>
+                        <div class="line_map_footer">
+                            <input type="submit" value="Ajouter" name="btn_ajouter" />
+                        </div>
+                    </div>
+                </form>
             </section>
             <footer>
                 <div class="footer_infos">Robin Plojoux / Antonio Pisanello</div>

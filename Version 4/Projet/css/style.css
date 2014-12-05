@@ -138,6 +138,15 @@ footer {
     background: menu;
     border: solid gray 1px;
 }
+.line_map_footer
+{
+    width : 80%;
+    height: 30%;
+    text-align: center;
+    margin: auto;
+    margin-top: 1%;
+    color: dodgerblue;
+}
 
 /*Google maps*/
 
