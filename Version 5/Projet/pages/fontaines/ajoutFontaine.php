@@ -22,7 +22,7 @@ if(isset($_REQUEST["btn_ajouter"]))
     $lat = $_REQUEST["tbx_Lat"];
     $lng = $_REQUEST["tbx_Lng"];
     
-    
+    ajout_fontaine($lat, $lng, $id_user, $bdd);
 }
 ?>
 <!DOCTYPE html>
