@@ -14,10 +14,8 @@ $input[2] = "";
 $taille_login = "180px";
 $petite_image = 'glyphicon glyphicon-send';
 
-<<<<<<< Updated upstream
-=======
 $btn_ajout_fontaine = "";
->>>>>>> Stashed changes
+
 $bdd = connexion('M152_Fontaines', 'localhost', 'root', '');
         
 if(isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'Inscription')
