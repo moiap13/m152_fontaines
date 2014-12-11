@@ -14,7 +14,7 @@ $input[2] = "";
 $taille_login = "180px";
 $petite_image = 'glyphicon glyphicon-send';
 
-$bdd = connexion('M152_Fontaines', 'localhost', 'root', 'root');
+$bdd = connexion('M152_Fontaines', 'localhost', 'root', '');
         
 if(isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'Inscription')
 {

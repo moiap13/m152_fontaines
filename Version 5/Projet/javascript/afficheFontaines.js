@@ -38,6 +38,7 @@ function initialise_tableau_marker(array, map, _rayon, point_localisation)
             nb_fontaines++;
         }
     }
+
     
     var span_nb_fontaines = document.getElementById("nb_fontaines");
     span_nb_fontaines.innerHTML = "Nombre de fontaines autour de vous : " + nb_fontaines;

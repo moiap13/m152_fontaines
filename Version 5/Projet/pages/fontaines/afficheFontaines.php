@@ -1,7 +1,7 @@
 <?php
     include "../fonctions.php";
     
-    $bdd = connexion('M152_Fontaines', 'localhost', 'root', 'root');
+    $bdd = connexion('M152_Fontaines', 'localhost', 'root', '');
 ?>
 <!DOCTYPE html>
 <!--

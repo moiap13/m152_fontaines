@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var myLatlng = new google.maps.LatLng(-34.397,150.644);
+var myLatlng = new google.maps.LatLng(46.797671, 8.236301);
 var geocoder;
 var marker;
 var rayon=3500;
@@ -66,7 +66,8 @@ function initialize(mode)
     {
         // Browser doesn't support Geolocation
         handleNoGeolocation(false);
-    }    
+    }
+    
 }
 
 function handleNoGeolocation(errorFlag) {
