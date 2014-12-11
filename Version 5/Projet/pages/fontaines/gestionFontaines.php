@@ -13,8 +13,8 @@ Version : 2.0
         <title>J'ai soif!</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
-        <link rel="stylesheet" href="../css/bootstrap/css/bootstrap.css"> 
-        <link rel="stylesheet" href="../css/style.css"> 
+        <link rel="stylesheet" href="../../css/bootstrap/css/bootstrap.css"> 
+        <link rel="stylesheet" href="../../css/style.css"> 
     </head>
     <body>
         <div id="page">
@@ -22,7 +22,7 @@ Version : 2.0
             </header>
             <nav>
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation"><a href="../index.php">Accueil <span class="glyphicon glyphicon-home"></span></a></li>
+                    <li role="presentation"><a href="../../index.php">Accueil <span class="glyphicon glyphicon-home"></span></a></li>
                 </ul>
             </nav>
             <section>

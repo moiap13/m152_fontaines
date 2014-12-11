@@ -13,11 +13,7 @@ $input[2] = "";
 
 $taille_login = "180px";
 $petite_image = 'glyphicon glyphicon-send';
-
-<<<<<<< Updated upstream
-=======
 $btn_ajout_fontaine = "";
->>>>>>> Stashed changes
 $bdd = connexion('M152_Fontaines', 'localhost', 'root', '');
         
 if(isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'Inscription')
@@ -68,7 +64,7 @@ if(isset($_SESSION["CONN"]) && $_SESSION["CONN"])
     if( $_SESSION["ADMIN"])
         $input[1] = '<p>Admin</p>';
     else
-        $input[1] = '<p>Pas Admin</p>'; 
+        $input[1] = '<p>Utilisateur standard</p>'; 
 
     $input[2] = "<p></p>";
     $input[3] = "<p></p>";
@@ -131,7 +127,8 @@ Version : 2.0
             <nav>
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="./index.php">Accueil <span class="glyphicon glyphicon-home"></span></a></li>
-                    <li role="presentation"><a href="./pages/gestionFontaines.php">Gestion fontaines</a></li>
+                    <li role="presentation"><a href="./pages/fontaines/gestionFontaines.php">Gestion fontaines</a></li>
+                    <li role="presentation"><a href="./pages/fontaines/gestionUtilisateur.php">Gestion du compte</a></li>
                 </ul>
             </nav>
             <section>

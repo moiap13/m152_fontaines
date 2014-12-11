@@ -105,4 +105,13 @@ function ajout_fontaine($lat, $lng, $id, $bdd)
     
     return $bdd->lastInsertId();
 }
+
+/****************************************** GESTION UTILISATEUR ****************************************/
+function modifierUser($id, $newMdp, $bdd){
+  $sql = "UPDATE users SET mdp = '$newMdp' WHERE id_user = $id ";
+  $request = $bdd->prepare($sql);
+    $request->execute();
+}
+
 ?>
+
