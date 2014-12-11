@@ -14,6 +14,10 @@ $input[2] = "";
 $taille_login = "180px";
 $petite_image = 'glyphicon glyphicon-send';
 
+<<<<<<< Updated upstream
+=======
+$btn_ajout_fontaine = "";
+>>>>>>> Stashed changes
 $bdd = connexion('M152_Fontaines', 'localhost', 'root', '');
         
 if(isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'Inscription')
@@ -43,6 +47,7 @@ if((isset($_REQUEST["btn_envoyer"]) && $_REQUEST['mode'] == 'Login'))
         $_SESSION["UID"] = $user[0][0];
         $_SESSION["ADMIN"] = $user[0][1];
         $_SESSION["CONN"] = true;
+        
     }
     else
     {
@@ -68,6 +73,8 @@ if(isset($_SESSION["CONN"]) && $_SESSION["CONN"])
     $input[2] = "<p></p>";
     $input[3] = "<p></p>";
     $input[4] = ' <p><a id="inscription" href="./pages/connexion/deconnexion.php" >'.$mode_lien.'</a></p>';
+    
+    $btn_ajout_fontaine = '<div id="btn_ajoutFontaine"><a class="modlinks" href="./pages/fontaines/ajoutFontaine.php">Ajouter une fontaine</a></div>';
 }
 
 if(isset($_REQUEST["btn_envoyer"]) && $_REQUEST['mode'] == 'Inscription')
@@ -88,6 +95,11 @@ if(isset($_REQUEST["btn_envoyer"]) && $_REQUEST['mode'] == 'Inscription')
         $input[1] = '<input type="password" name="tbx_pwd" placeholder="Mot de passe" class="espace_login" value="' . $mdp.'"/>';
         $input[2] = '<input type="password" name="tbx_pwd" placeholder="Mot de passe" class="espace_login" value="' . $mdp_2.'"/>';
     }
+}
+
+if(isset($_REQUEST['error']))
+{
+    echo $_REQUEST['error'];
 }
 ?>
 <!DOCTYPE html>
@@ -140,8 +152,8 @@ Version : 2.0
                 </aside>
                 
                 <div class="conteneur_btn">
-                  <div id="btn_afficheFontaine"><a class="modlinks" href="./pages/fontaines/afficheFontaines.php">J'ai soif!</a></div>
-                  <div id="btn_ajoutFontaine"><a class="modlinks" href="./pages/fontaines/ajoutFontaine.php">Ajouter une fontaine</a></div>
+                    <div id="btn_afficheFontaine"><a class="modlinks" href="./pages/fontaines/afficheFontaines.php">J'ai soif!</a></div>
+                    <?php echo $btn_ajout_fontaine; ?>
                 </div>
             </section>
             <footer>

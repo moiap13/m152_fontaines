@@ -1,5 +1,29 @@
 <?php
+session_start();
+include "../fonctions.php";
 
+$lat = "";
+$lng = "";
+$id_user = "";
+
+$bdd = connexion('M152_Fontaines', 'localhost', 'root', '');
+
+if(isset($_SESSION["CONN"]) && $_SESSION["CONN"])
+{
+    $id_user = $_SESSION["ID"];
+}
+else
+{
+    header('Location: ../../index.php?error=Vous devez être connécté');
+}
+
+if(isset($_REQUEST["btn_ajouter"]))
+{
+    $lat = $_REQUEST["tbx_Lat"];
+    $lng = $_REQUEST["tbx_Lng"];
+    
+    
+}
 ?>
 <!DOCTYPE html>
 <!--
@@ -30,19 +54,22 @@ Version : 2.0
                 </ul>
             </nav>
             <section>
-                <form method="" action="">
+                
                     <div class="afficheCoord">
-                        <label>Lat : </label><input type="number" name="tbx_Lat" value="" id="tbx_lat" />
-                        <label>Lng : </label><input type="number" name="tbx_lng" value="" id="tbx_lng" />
+                        <label>Lat : </label><input type="number" name="tbx_tmp_Lat" value="<?php echo $lat; ?>" id="tbx_tmp_lat" onKeypress="tbx_changed_value()" onchange="tbx_changed_value()"/>
+                        <label>Lng : </label><input type="number" name="tbx_tmp_lng" value="<?php echo $lng; ?>" id="tbx_tmp_lng" onKeypress="tbx_changed_value()" onchange="tbx_changed_value()"/>
                     </div>  
                     <div id='map-canvas' style="height: 80%;"></div> 
                     <div class="mapFooter">
                         <div class="line_map_footer"><span id="nom_rue"></span></div>
                         <div class="line_map_footer">
-                            <input type="submit" value="Ajouter" name="btn_ajouter" />
+                            <form method="post" action="#">
+                                <input type="submit" value="Ajouter" name="btn_ajouter" />
+                                <input type="hidden" name="tbx_Lat" value="" id="tbx_lat" />
+                                <input type="hidden" name="tbx_Lng" value="" id="tbx_lng" />
+                            </form>
                         </div>
                     </div>
-                </form>
             </section>
             <footer>
                 <div class="footer_infos">Robin Plojoux / Antonio Pisanello</div>

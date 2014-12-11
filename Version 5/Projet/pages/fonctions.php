@@ -73,7 +73,7 @@ function ajout_personne($pseudo, $mdp, $bdd)
 
 function recupere_fontaines($bdd)
 {
-    $sql = "select lat,lng from fontaines";
+    $sql = "select lat,lng,active from fontaines";
     $request_fontaines = $bdd->query($sql);
     return $request_fontaines->fetchAll();
 }
@@ -89,5 +89,20 @@ function instancier_tableau_javascript($array)
     }
     
     return $affichage;
+}
+
+/****************************************** PAGE AJOUT FONTAINES ****************************************/
+
+function ajout_fontaine($lat, $lng, $id, $bdd)
+{
+    $sql = "insert into fontaines(lat, lng, active, id_user) values(:lat, :lng, 0, :id_user)";
+    $request = $bdd->prepare($sql);
+    $request->execute(array(
+        "lat" => $lat,
+        "lng" => $lng,
+        "id_user" => $id
+    ));
+    
+    return $bdd->lastInsertId();
 }
 ?>
