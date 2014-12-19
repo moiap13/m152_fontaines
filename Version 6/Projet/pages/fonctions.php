@@ -38,7 +38,7 @@ function connexion($db_name, $host, $user, $pwd)
  */
 function Login($pseudo, $mdp, $bdd)
 {
-    $sql = 'SELECT id_user FROM users WHERE (pseudo="'.$pseudo.'" AND mdp="'.$mdp.'") OR (email="'.$pseudo.'" AND mdp="'.$mdp.'")';
+    $sql = 'SELECT id_user FROM users WHERE (pseudo="'.$pseudo.'" AND mdp="'.$mdp.'")';
     $requete = $bdd->query($sql);
     return $requete->fetchAll();
 }
@@ -112,10 +112,16 @@ function ajout_fontaine($lat, $lng, $id, $bdd)
     return $bdd->lastInsertId();
 }
 /****************************************** GESTION UTILISATEUR ****************************************/
-function modifierUser($id, $newMdp, $bdd){
-  $sql = "UPDATE users SET mdp = '$newMdp' WHERE id_user = $id ";
+function modifierUser($id, $newMdp,$rayon, $bdd){
+  $sql = "UPDATE users SET mdp = '$newMdp', rayon = '$rayon' WHERE id_user = $id ";
   $request = $bdd->prepare($sql);
-    $request->execute();
+  $request->execute();
+}
+
+function recupereMdp($id, $bdd){
+  $sql = "SELECT mdp FROM users WHERE id_user = $id ";
+  $request = $bdd->query($sql);
+  return $request->fetchAll();
 }
 /****************************************** PAGE GESTION FONTAINES ****************************************/
 function affiche_fontaines($array, $mode)

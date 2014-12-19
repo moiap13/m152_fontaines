@@ -6,7 +6,7 @@
 var myLatlng = new google.maps.LatLng(46.797671, 8.236301);
 var geocoder;
 var marker;
-var rayon=500;
+var rayon= 500;
 var nb_fontaines = 0;
 
 function initialize(mode) 
