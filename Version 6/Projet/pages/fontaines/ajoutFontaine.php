@@ -22,7 +22,7 @@ if(isset($_SESSION["CONN"]) && $_SESSION["CONN"])
         $liens[1] = '<li role="presentation"><a href="../utilisateurs/gestion_utilisateurs.php">Gestion Utilisateurs</a></li>';
     }
     
-    $liens[2] = '<li role="presentation"><a href="./gestionUtilisateur.php">Gestion du compte</a></li>';
+    $liens[2] = '<li role="presentation"><a href="../utilisateurs/parametreCompte.php">Parametres du compte</a></li>';
 }
 else
 {
@@ -35,6 +35,7 @@ if(isset($_REQUEST["btn_ajouter"]))
     $lng = $_REQUEST["tbx_Lng"];
     
     ajout_fontaine($lat, $lng, $id_user, $bdd);
+    header('Location: ../../index.php?error=Ajouter avec succès');
 }
 ?>
 <!DOCTYPE html>

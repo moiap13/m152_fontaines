@@ -18,8 +18,8 @@ if(isset($_SESSION["CONN"]) && $_SESSION["CONN"])
     if( $_SESSION["ADMIN"])
     {
         $isAdmin = 'Admin';
-        $liens[0] = '<li role="presentation"><a href=".fontaines/gestionFontaines.php">Gestion fontaines</a></li>';
-        $liens[1] = '<li role="presentation"><a href="../utilisateurs/gestion_utilisateurs.php">Gestion Utilisateurs</a></li>';
+        $liens[0] = '<li role="presentation"><a href="../fontaines/gestionFontaines.php">Gestion fontaines</a></li>';
+        $liens[1] = '<li role="presentation"><a href="./gestion_utilisateurs.php">Gestion Utilisateurs</a></li>';
     }
     else
         $isAdmin = 'Utilisateur standard';
@@ -34,7 +34,7 @@ if(isset($_SESSION["CONN"]) && $_SESSION["CONN"])
         }      
     }
     
-    $liens[2] = '<li role="presentation"><a href="./gestionUtilisateur.php">Gestion du compte</a></li>';
+    $liens[2] = '<li role="presentation"><a href="./parametreCompte.php">Parametres du compte</a></li>';
 }
 else
 {

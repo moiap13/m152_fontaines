@@ -1,8 +1,8 @@
 <?php
 session_start();
-include 'pages/fonctions.php';
+include 'pages/fonctions.php'; // Include des fonctions php
 
-
+// INITIALISATION DES VARIABLES
 $mode = 'Login';
 $mode_lien = 'Inscription';
 
@@ -18,30 +18,34 @@ $taille_login = "180px";
 $petite_image = 'glyphicon glyphicon-send';
 $btn_ajout_fontaine = "";
 $bdd = connexion('M152_Fontaines', 'localhost', 'root', '');
-        
+
+// Si on appuie sur le lien "Inscription"
 if(isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'Inscription')
 {
     $mode = 'Inscription';
-    $input[2] = '<input type="password" name="tbx_confirm" placeholder="Confirmer MDP" class="espace_login"/>';
+    $input[2] = '<input type="password" name="tbx_confirm" placeholder="Confirmer MDP" class="espace_login"/>';// ajout d'un tbx pour confirmer le pwd
     $mode_lien = 'Login';
     $taille_login = "210px";
     $petite_image = 'glyphicon glyphicon-pencil';
 }
 
+// un tableaux de string avec les input pour le login
 $input[3] = '<input type="submit" name="btn_envoyer" value="'.$mode.'" class="espace_login"/> <span class="<?php echo $petite_image; ?>"></span>';
 $input[4] = ' <p><a id="inscription" href="index.php?mode='.$mode_lien.'" >'.$mode_lien.'</a></p>';
 
+// Si on appuie sur le bouton login
 if((isset($_REQUEST["btn_envoyer"]) && $_REQUEST['mode'] == 'Login'))
 {
-    $pseudo = (isset($_REQUEST["tbx_uid"])?$_REQUEST["tbx_uid"]:"");
-    $mdp = (isset($_REQUEST["tbx_pwd"])?$_REQUEST["tbx_pwd"]:"");
+    $pseudo = (isset($_REQUEST["tbx_uid"])?$_REQUEST["tbx_uid"]:""); //definition d'une variable pseudo contennant le tbx du login
+    $mdp = (isset($_REQUEST["tbx_pwd"])?$_REQUEST["tbx_pwd"]:""); ////definition d'une variable mdp contennant le tbx du login
     
-    $Login = Login($pseudo, $mdp, $bdd);
+    $Login = Login($pseudo, $mdp, $bdd); //La variable login recupere id_user sous forme d'un tableaux
             
-    if(!empty($Login))
+    if(!empty($Login)) //Si on a recu un tableau on est connecter
     { 
         $user = recupere_users_par_id($Login[0][0], $bdd);
 
+        //On set les principales propriete
         $_SESSION["ID"] = $Login[0][0];
         $_SESSION["UID"] = $user[0][0];
         $_SESSION["ADMIN"] = $user[0][1];
@@ -77,7 +81,7 @@ if(isset($_SESSION["CONN"]) && $_SESSION["CONN"])
     $input[3] = "<p></p>";
     $input[4] = ' <p><a id="inscription" href="./pages/connexion/deconnexion.php" >'.$mode_lien.'</a></p>';
     
-    $liens[2] = '<li role="presentation"><a href="./pages/fontaines/gestionUtilisateur.php">Gestion du compte</a></li>';
+    $liens[2] = '<li role="presentation"><a href="./pages/utilisateurs/parametreCompte.php">Parametres du compte</a></li>';
     
     $btn_ajout_fontaine = '<div id="btn_ajoutFontaine"><a class="modlinks" href="./pages/fontaines/ajoutFontaine.php">Ajouter une fontaine</a></div>';
 }

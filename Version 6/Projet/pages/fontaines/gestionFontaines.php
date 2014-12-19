@@ -21,7 +21,7 @@ if(isset($_SESSION["CONN"]) && $_SESSION["CONN"])
         
         $liens[0] = '<li role="presentation"><a href="./gestionFontaines.php">Gestion fontaines</a></li>';
         $liens[1] = '<li role="presentation"><a href="../utilisateurs/gestion_utilisateurs.php">Gestion Utilisateurs</a></li>';
-        $liens[2] = '<li role="presentation"><a href="./gestionUtilisateur.php">Gestion du compte</a></li>';
+        $liens[2] = '<li role="presentation"><a href="../utilisateurs/parametreCompte.php">Parametres du compte</a></li>';
     }
     else
     {
