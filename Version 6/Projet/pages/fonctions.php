@@ -118,8 +118,8 @@ function modifierUser($id, $newMdp,$rayon, $bdd){
   $request->execute();
 }
 
-function recupereMdp($id, $bdd){
-  $sql = "SELECT mdp FROM users WHERE id_user = $id ";
+function recupere_infos_modif_utilisateur($id, $bdd){
+  $sql = "SELECT mdp, rayon FROM users WHERE id_user = $id ";
   $request = $bdd->query($sql);
   return $request->fetchAll();
 }

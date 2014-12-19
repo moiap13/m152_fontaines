@@ -1,10 +1,17 @@
 <?php
+    session_start();
     include "../fonctions.php";
     
     $bdd = connexion('M152_Fontaines', 'localhost', 'root', '');
     
+    if(isset($_SESSION["CONN"]) && $_SESSION["CONN"])
+        $input_cache_rayon = '<input type="hidden" id="hidden_rayon" value="'. recupere_infos_modif_utilisateur($_SESSION["ID"], $bdd)[0][1] .'" />';
+    else
+        $input_cache_rayon = '<input type="hidden" id="hidden_rayon" value="500" />';
+    
     $input_cache_mode = '<input type="hidden" id="hidden_mode" value="affichage" />';
     $input_cache_latlng = "";
+    
     
     if(isset($_REQUEST['mode']))
     {
@@ -48,7 +55,7 @@ Version : 2.0
                 <div class='mapFooter'>
                     <div class="line_map_footer"><span id="nb_fontaines"></span></div>
                     <div class="line_map_footer"><span id="nom_rue"></span></div>
-                    <?php echo $input_cache_mode; echo $input_cache_latlng;?>
+                    <?php echo $input_cache_mode; echo $input_cache_latlng; echo $input_cache_rayon;?>
                 </div>
             </section>
             <footer>

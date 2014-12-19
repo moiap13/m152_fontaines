@@ -20,8 +20,10 @@ function initialize(mode)
     var map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
     geocoder = new google.maps.Geocoder();
     
+    
     if(mode == 0)
     {
+        rayon = document.getElementById("hidden_rayon").value;
         var array = recupere_lat_lng();
     }
 
@@ -45,7 +47,7 @@ function initialize(mode)
                 var monCercle = new google.maps.Circle({
                     map: map,
                     center: pos,
-                    radius: rayon
+                    radius: parseInt(rayon)
                 }); 
                 
                 initialise_tableau_marker(array, map, rayon, pos);

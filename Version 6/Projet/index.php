@@ -12,6 +12,7 @@ $input[2] = "";
 
 $liens[0] = "";
 $liens[1] = "";
+$liens[2] = "";
 
 $taille_login = "180px";
 $petite_image = 'glyphicon glyphicon-send';
@@ -76,6 +77,8 @@ if(isset($_SESSION["CONN"]) && $_SESSION["CONN"])
     $input[3] = "<p></p>";
     $input[4] = ' <p><a id="inscription" href="./pages/connexion/deconnexion.php" >'.$mode_lien.'</a></p>';
     
+    $liens[2] = '<li role="presentation"><a href="./pages/fontaines/gestionUtilisateur.php">Gestion du compte</a></li>';
+    
     $btn_ajout_fontaine = '<div id="btn_ajoutFontaine"><a class="modlinks" href="./pages/fontaines/ajoutFontaine.php">Ajouter une fontaine</a></div>';
 }
 
@@ -133,8 +136,7 @@ Version : 2.0
             <nav>
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="./index.php">Accueil <span class="glyphicon glyphicon-home"></span></a></li>
-                    <?php echo $liens[0];                    echo $liens[1]; ?>
-                    <li role="presentation"><a href="./pages/fontaines/gestionUtilisateur.php">Gestion du compte</a></li>
+                    <?php echo $liens[0]; echo $liens[1]; echo $liens[2]; ?>
                 </ul>
             </nav>
             <section>
