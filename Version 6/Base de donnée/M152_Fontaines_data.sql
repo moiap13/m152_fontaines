@@ -46,7 +46,7 @@ CREATE TABLE `users` (
 `id_user` int(4) NOT NULL,
   `pseudo` varchar(50) NOT NULL,
   `mdp` varchar(50) NOT NULL,
-  `email` varchar(100) NOT NULL,
+  `rayon` tinyint(100) NOT NULL DEFAULT 500,
   `admin` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
