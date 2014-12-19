@@ -99,10 +99,10 @@ function recupere_fontaines($bdd)
     $request_fontaines = $bdd->query($sql);
     return $request_fontaines->fetchAll();
 }
-
-/** Fonction
- *-------------------------------- 
- * @param type $array
+/**
+ * D'après un tableau ecrire des input type hidden pour pouvoir passer les valeurs entre javascript et php
+ * --------------------------------------------------------------------------------------------------------
+ * @param type $array 
  * @return string
  */
 function instancier_tableau_javascript($array)
