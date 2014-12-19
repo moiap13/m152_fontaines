@@ -3,7 +3,7 @@
     
     $bdd = connexion('M152_Fontaines', 'localhost', 'root', '');
     
-    $input_cache_mode = "";
+    $input_cache_mode = '<input type="hidden" id="hidden_mode" value="affichage" />';
     $input_cache_latlng = "";
     
     if(isset($_REQUEST['mode']))

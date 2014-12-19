@@ -55,5 +55,4 @@ $(window).load(function(){
         initialize(2);
     else
         initialize(-1);
-    
 });
