@@ -2,6 +2,18 @@
     include "../fonctions.php";
     
     $bdd = connexion('M152_Fontaines', 'localhost', 'root', '');
+    
+    $input_cache_mode = "";
+    $input_cache_latlng = "";
+    
+    if(isset($_REQUEST['mode']))
+    {
+        $input_cache_mode = '<input type="hidden" id="hidden_mode" value="'.$_REQUEST['mode'].'" />';
+    }
+    if(isset($_REQUEST['latlng']))
+    {
+        $input_cache_latlng = '<input type="hidden" id="hidden_latlng" value="'.$_REQUEST['latlng'].'" />';
+    }
 ?>
 <!DOCTYPE html>
 <!--
@@ -36,6 +48,7 @@ Version : 2.0
                 <div class='mapFooter'>
                     <div class="line_map_footer"><span id="nb_fontaines"></span></div>
                     <div class="line_map_footer"><span id="nom_rue"></span></div>
+                    <?php echo $input_cache_mode; echo $input_cache_latlng;?>
                 </div>
             </section>
             <footer>

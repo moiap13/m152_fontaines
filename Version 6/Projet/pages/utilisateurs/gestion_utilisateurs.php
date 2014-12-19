@@ -56,14 +56,8 @@ Version : 2.0
             <section>
                 <form method="" action="">
                     <fieldset class="liste_fontaine">
-                        <legend>Liste de fontaines non actives</legend>
-                        <?php if($admin) echo affiche_fontaines(recupere_fontaines($bdd), 0);?>
-                    </fieldset>
-                </form>
-                <form method="" action="">
-                    <fieldset class="liste_fontaine">
-                        <legend>Liste de fontaines actives</legend>
-                        <?php if($admin) echo affiche_fontaines(recupere_fontaines($bdd), 1);?>
+                        <legend>Liste des Utilisateurs</legend>
+                        <?php if($admin) echo affiche_utilisateur(recupere_utilisateur($bdd));?>
                     </fieldset>
                 </form>
             </section>

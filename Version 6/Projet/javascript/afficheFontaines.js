@@ -47,5 +47,13 @@ function initialise_tableau_marker(array, map, _rayon, point_localisation)
 
 
 $(window).load(function(){
-    initialize(0)
+    var mode = document.getElementById('hidden_mode').value;
+    
+    if(mode == "affichage")
+        initialize(0);
+    else if(mode == "validation")
+        initialize(2);
+    else
+        initialize(-1);
+    
 });

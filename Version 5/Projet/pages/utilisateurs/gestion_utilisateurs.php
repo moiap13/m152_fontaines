@@ -50,20 +50,14 @@ Version : 2.0
             </header>
             <nav>
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation"><a href="../../index.php">Accueil <span class="glyphicon glyphicon-home"></span></a></li>
+                    <li role="presentation"><a href="../index.php">Accueil <span class="glyphicon glyphicon-home"></span></a></li>
                 </ul>
             </nav>
             <section>
                 <form method="" action="">
                     <fieldset class="liste_fontaine">
-                        <legend>Liste de fontaines non actives</legend>
-                        <?php if($admin) echo affiche_fontaines(recupere_fontaines($bdd), 0);?>
-                    </fieldset>
-                </form>
-                <form method="" action="">
-                    <fieldset class="liste_fontaine">
-                        <legend>Liste de fontaines actives</legend>
-                        <?php if($admin) echo affiche_fontaines(recupere_fontaines($bdd), 1);?>
+                        <legend>Liste des Utilisateurs</legend>
+                        <?php if($admin) echo affiche_utilisateurs(recupere_utilisateurs($bdd));?>
                     </fieldset>
                 </form>
             </section>

@@ -10,6 +10,8 @@ $input[0] = '<input type="text" name="tbx_uid" placeholder="Nom d\'utilisateur" 
 $input[1] = '<input type="password" name="tbx_pwd" placeholder="Mot de passe" class="espace_login"/>';
 $input[2] = "";
 
+$liens[0] = "";
+$liens[1] = "";
 
 $taille_login = "180px";
 $petite_image = 'glyphicon glyphicon-send';
@@ -62,7 +64,11 @@ if(isset($_SESSION["CONN"]) && $_SESSION["CONN"])
     $input[0] = '<p>Bienvenue <span id="pseudo">' . $_SESSION["UID"] . "</span></p>";
         
     if( $_SESSION["ADMIN"])
+    {
         $input[1] = '<p>Admin</p>';
+        $liens[0] = '<li role="presentation"><a href="./pages/fontaines/gestionFontaines.php">Gestion fontaines</a></li>';
+        $liens[1] = '<li role="presentation"><a href="./pages/utilisateurs/gestion_utilisateurs.php">Gestion Utilisateurs</a></li>';
+    }
     else
         $input[1] = '<p>Utilisateur standard</p>'; 
 
@@ -127,7 +133,7 @@ Version : 2.0
             <nav>
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="./index.php">Accueil <span class="glyphicon glyphicon-home"></span></a></li>
-                    <li role="presentation"><a href="./pages/fontaines/gestionFontaines.php">Gestion fontaines</a></li>
+                    <?php echo $liens[0];                    echo $liens[1]; ?>
                     <li role="presentation"><a href="./pages/fontaines/gestionUtilisateur.php">Gestion du compte</a></li>
                 </ul>
             </nav>

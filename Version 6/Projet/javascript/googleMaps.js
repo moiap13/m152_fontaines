@@ -38,6 +38,8 @@ function initialize(mode)
                 icon: "../../img/Marker.png"
             });
             
+            map.setCenter(pos);
+            
             if(mode == 0)
             {
                 var monCercle = new google.maps.Circle({
@@ -53,9 +55,25 @@ function initialize(mode)
                 set_lat_lng_input(pos);
                 tbx_changed_value();
             }
+            else if(mode == 2)
+            {
+                var latlng_str = document.getElementById('hidden_latlng').value;
+                
+                var fontaine = new google.maps.LatLng(latlng_str.split(',')[0], latlng_str.split(',')[1]);
+                
+                marker = new google.maps.Marker({
+                        position: fontaine,
+                        map: map,
+                        title	: "Fontaine a activer",
+                        icon: "../../img/icon.png"
+                    });
+                    
+                map.setCenter(fontaine);  
+            }
+                
             
             codeLatLng(pos, map, 1);
-            map.setCenter(pos);
+            
             
         }, function(err) 
         {

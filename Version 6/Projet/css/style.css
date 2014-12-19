@@ -170,3 +170,48 @@ footer {
     border-radius: 3px;
     float: left;
 }
+
+/* Page Gestion Fontaines*/
+.liste_fontaine
+{
+    width: 100%;
+    height: 50%;
+}
+.liste_fontaines
+{
+    width: 90%;
+    height: 100%;
+    margin: auto;
+    overflow: auto;
+}
+#en_tete
+{
+    width: 90%;
+    height: 30px;
+    margin: auto;
+    background-color: blue;
+}
+.ligne_fonce
+{
+    width: 90%;
+    height: 30px;
+    margin: auto;
+    background-color: #5bc0de;
+    border-bottom: solid 1px black;
+}
+
+.ligne_clair
+{
+    width: 90%;
+    height: 30px;
+    margin: auto;
+    background-color: #a6e1ec; 
+    border-bottom: solid 1px black;
+}
+.cellule
+{
+    width: 33%;
+    height: 100%;
+    float: left;
+    text-align: center;
+}

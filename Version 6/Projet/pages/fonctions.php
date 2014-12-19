@@ -42,7 +42,7 @@ function Login($pseudo, $mdp, $bdd)
     $requete = $bdd->query($sql);
     return $requete->fetchAll();
 }
-/**Fonction qui recupere une personne en spécifiant un ID
+/** Fonction qui recupere une personne en spécifiant un ID
  * ------------------------------------------------------
  * @param type $id
  * @param type $bdd
@@ -51,6 +51,13 @@ function Login($pseudo, $mdp, $bdd)
 function recupere_users_par_id($id, $bdd)
 {
     $sql = 'SELECT pseudo, admin FROM users WHERE id_user=' . $id;
+    $requete = $bdd->query($sql);
+    return $requete->fetchAll();
+}
+
+function recupere_utilisateur($bdd)
+{
+    $sql = 'SELECT id_user, pseudo, admin FROM users';
     $requete = $bdd->query($sql);
     return $requete->fetchAll();
 }
@@ -73,7 +80,7 @@ function ajout_personne($pseudo, $mdp, $bdd)
 
 function recupere_fontaines($bdd)
 {
-    $sql = "select lat,lng,active from fontaines";
+    $sql = "select id_fontaine,lat,lng,active from fontaines";
     $request_fontaines = $bdd->query($sql);
     return $request_fontaines->fetchAll();
 }
@@ -84,15 +91,14 @@ function instancier_tableau_javascript($array)
     
     for($i=0;$i<count($array);$i++)
     {
-        $affichage .= '<input type="hidden" id="lat_' . $i . '" class="lat" value="' . $array[$i][0] . '" />';  
-        $affichage .= '<input type="hidden" id="lng_' . $i . '" class="lng" value="' . $array[$i][1] . '" />';  
+        $affichage .= '<input type="hidden" id="lat_' . $i . '" class="lat" value="' . $array[$i][1] . '" />';  
+        $affichage .= '<input type="hidden" id="lng_' . $i . '" class="lng" value="' . $array[$i][2] . '" />';  
     }
     
     return $affichage;
 }
 
 /****************************************** PAGE AJOUT FONTAINES ****************************************/
-
 function ajout_fontaine($lat, $lng, $id, $bdd)
 {
     $sql = "insert into fontaines(lat, lng, active, id_user) values(:lat, :lng, 0, :id_user)";
@@ -105,13 +111,122 @@ function ajout_fontaine($lat, $lng, $id, $bdd)
     
     return $bdd->lastInsertId();
 }
-
 /****************************************** GESTION UTILISATEUR ****************************************/
 function modifierUser($id, $newMdp, $bdd){
   $sql = "UPDATE users SET mdp = '$newMdp' WHERE id_user = $id ";
   $request = $bdd->prepare($sql);
     $request->execute();
 }
+/****************************************** PAGE GESTION FONTAINES ****************************************/
+function affiche_fontaines($array, $mode)
+{
+    $affichage = "";
+    $affichage = '<div class="liste_fontaines">';
+    $affichage .= '<div id="en_tete"><div class="cellule">N° Fontaine</div><div class="cellule">LatLng</div><div class="cellule">Action</div></div>';
 
+    for($i=0;$i<count($array);$i++)
+    {
+        if($array[$i][3] == $mode)
+        {
+            /*if($i%2 == 0)
+            {
+                $class = "ligne_fonce";
+            }
+            else
+            {*/
+                $class = "ligne_clair";
+            //}
+
+            $affichage .= '<div class="'. $class .'">';
+            $affichage .= '<div class="cellule">'.$array[$i][0].'</div>';
+            $affichage .= '<div class="cellule"><a href="afficheFontaines.php?mode=validation&latlng='.$array[$i][1].','.$array[$i][2].'" />'.$array[$i][1].','.$array[$i][2].'</a></div>';
+            $affichage .= '<div class="cellule">';
+            
+            if($mode == 0)
+                $affichage .= '<a href="valider_fontaine.php?id='.$array[$i][0].'">✔</a><a href="supprimer_fontaine.php?id='.$array[$i][0].'">x</a>';
+            else
+                $affichage .= '<a href="supprimer_fontaine.php?id='.$array[$i][0].'">x</a>';
+            
+            $affichage .= '</div>';
+            $affichage .= '</div>';
+        }
+    }
+
+   $affichage .= "</div>";
+    
+    return $affichage;
+}
+
+function supprimer_fontaine($id, $bdd)
+{
+    $sql = 'delete from fontaines where id_fontaine = :id';
+    $request = $bdd->prepare($sql);
+    $request->execute(array('id' => $id));
+}
+
+function valider_fontaine($id, $bdd)
+{
+    $sql = 'UPDATE fontaines SET active = 1 where id_fontaine = :id';
+    $request = $bdd->prepare($sql);
+    $request->execute(array('id' => $id));
+}
+
+/****************************************** PAGE GESTION UTILISATEURS ****************************************/
+function affiche_utilisateur($array)
+{
+    $affichage = "";
+    $affichage = '<div class="liste_utilisateurs">';
+    $affichage .= '<div id="en_tete"><div class="cellule">N° Utilisateur</div><div class="cellule">Nom / Admin</div><div class="cellule">Action</div></div>';
+
+    for($i=0;$i<count($array);$i++)
+    {
+            /*if($i%2 == 0)
+            {
+                $class = "ligne_fonce";
+            }
+            else
+            {*/
+                $class = "ligne_clair";
+            //}
+
+            $affichage .= '<div class="'. $class .'">';
+            $affichage .= '<div class="cellule">'.$array[$i][0].'</div>';
+            
+            if($array[$i][2])
+            {
+                $est_admin = 'ADMIN';
+                $action = '<a href="changer_admin.php?id='.$array[$i][0].'&mode=0">✍</a><a href="supprimer_utilisateur.php?id='.$array[$i][0].'">x</a>';
+            }
+            else
+            {
+               $est_admin = 'PAS ADMIN'; 
+               $action = '<a href="changer_admin.php?id='.$array[$i][0].'&mode=1">✍</a><a href="supprimer_utilisateur.php?id='.$array[$i][0].'">x</a>';
+            }
+            
+            
+            $affichage .= '<div class="cellule">'.$array[$i][1].' / '.$est_admin.'</div>';
+            $affichage .= '<div class="cellule">';
+            $affichage .= $action;
+            $affichage .= '</div>';
+            $affichage .= '</div>';
+    }
+
+   $affichage .= "</div>";
+    
+    return $affichage;
+}
+
+function supprimer_utilisateur($id, $bdd)
+{
+    $sql = 'delete from users where id_user = :id';
+    $request = $bdd->prepare($sql);
+    $request->execute(array('id' => $id));
+}
+
+function valider_admin_utilisateur($id, $admin, $bdd)
+{
+    $sql = 'UPDATE users SET admin = :admin where id_user = :id';
+    $request = $bdd->prepare($sql);
+    $request->execute(array('admin' => $admin, 'id' => $id));
+}
 ?>
-
