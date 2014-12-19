@@ -1,26 +1,41 @@
 <?php
-    session_start();
-    include "../fonctions.php";
-    
-    $bdd = connexion('M152_Fontaines', 'localhost', 'root', '');
-    
-    if(isset($_SESSION["CONN"]) && $_SESSION["CONN"])
-        $input_cache_rayon = '<input type="hidden" id="hidden_rayon" value="'. recupere_infos_modif_utilisateur($_SESSION["ID"], $bdd)[0][1] .'" />';
-    else
-        $input_cache_rayon = '<input type="hidden" id="hidden_rayon" value="500" />';
-    
-    $input_cache_mode = '<input type="hidden" id="hidden_mode" value="affichage" />';
-    $input_cache_latlng = "";
-    
-    
-    if(isset($_REQUEST['mode']))
+session_start();
+include "../fonctions.php";
+
+$bdd = connexion('M152_Fontaines', 'localhost', 'root', '');
+
+$liens[0] = "";
+$liens[1] = "";
+$liens[2] = "";
+
+if(isset($_SESSION["CONN"]) && $_SESSION["CONN"])
+{
+    if( $_SESSION["ADMIN"])
     {
-        $input_cache_mode = '<input type="hidden" id="hidden_mode" value="'.$_REQUEST['mode'].'" />';
+        $liens[0] = '<li role="presentation"><a href="./gestionFontaines.php">Gestion fontaines</a></li>';
+        $liens[1] = '<li role="presentation"><a href="../utilisateurs/gestion_utilisateurs.php">Gestion Utilisateurs</a></li>';
     }
-    if(isset($_REQUEST['latlng']))
-    {
-        $input_cache_latlng = '<input type="hidden" id="hidden_latlng" value="'.$_REQUEST['latlng'].'" />';
-    }
+    
+    $liens[2] = '<li role="presentation"><a href="./gestionUtilisateur.php">Gestion du compte</a></li>';
+}
+
+if(isset($_SESSION["CONN"]) && $_SESSION["CONN"])
+    $input_cache_rayon = '<input type="hidden" id="hidden_rayon" value="'. recupere_infos_modif_utilisateur($_SESSION["ID"], $bdd)[0][1] .'" />';
+else
+    $input_cache_rayon = '<input type="hidden" id="hidden_rayon" value="500" />';
+
+$input_cache_mode = '<input type="hidden" id="hidden_mode" value="affichage" />';
+$input_cache_latlng = "";
+
+
+if(isset($_REQUEST['mode']))
+{
+    $input_cache_mode = '<input type="hidden" id="hidden_mode" value="'.$_REQUEST['mode'].'" />';
+}
+if(isset($_REQUEST['latlng']))
+{
+    $input_cache_latlng = '<input type="hidden" id="hidden_latlng" value="'.$_REQUEST['latlng'].'" />';
+}
 ?>
 <!DOCTYPE html>
 <!--
@@ -48,6 +63,7 @@ Version : 2.0
             <nav>
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation"><a href="../../index.php">Accueil <span class="glyphicon glyphicon-home"></span></a></li>
+                    <?php echo $liens[0]; echo $liens[1]; echo $liens[2]; ?>
                 </ul>
             </nav>
             <section>

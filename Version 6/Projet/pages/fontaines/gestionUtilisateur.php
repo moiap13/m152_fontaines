@@ -3,14 +3,24 @@ session_start();
 include './../fonctions.php';
 $bdd = connexion('M152_Fontaines', 'localhost', 'root', '');
 
+$liens[0] = "";
+$liens[1] = "";
+$liens[2] = "";
 
 if(isset($_SESSION["CONN"]) && $_SESSION["CONN"])
 {   
     $id = $_SESSION["ID"];
     $utilisateur = recupere_infos_modif_utilisateur($id,$bdd);
+        
+    
+    
     
     if( $_SESSION["ADMIN"])
+    {
         $isAdmin = 'Admin';
+        $liens[0] = '<li role="presentation"><a href=".fontaines/gestionFontaines.php">Gestion fontaines</a></li>';
+        $liens[1] = '<li role="presentation"><a href="../utilisateurs/gestion_utilisateurs.php">Gestion Utilisateurs</a></li>';
+    }
     else
         $isAdmin = 'Utilisateur standard';
     
@@ -22,7 +32,9 @@ if(isset($_SESSION["CONN"]) && $_SESSION["CONN"])
             modifierUser($id, $newMdp, $rayon, $bdd);
             header('location: ../connexion/deconnexion.php');
         }      
-    }   
+    }
+    
+    $liens[2] = '<li role="presentation"><a href="./gestionUtilisateur.php">Gestion du compte</a></li>';
 }
 else
 {
@@ -52,6 +64,7 @@ Version : 2.0
             <nav>
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation"><a href="../../index.php">Accueil <span class="glyphicon glyphicon-home"></span></a></li>
+                    <?php echo $liens[0]; echo $liens[1]; echo $liens[2]; ?>
                 </ul>
             </nav>
             <section>

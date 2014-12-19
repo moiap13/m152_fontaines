@@ -11,7 +11,15 @@ var nb_fontaines = 0;
 
 function initialize(mode) 
 {
-    var mapOptions = {
+    
+
+    // Try HTML5 geolocation
+    if(navigator.geolocation) 
+    {
+        
+        navigator.geolocation.getCurrentPosition(function(position) 
+        {
+            var mapOptions = {
         center: myLatlng,
         zoom: 13,
         mapTypeId:google.maps.MapTypeId.HYBRID
@@ -26,12 +34,6 @@ function initialize(mode)
         rayon = document.getElementById("hidden_rayon").value;
         var array = recupere_lat_lng();
     }
-
-    // Try HTML5 geolocation
-    if(navigator.geolocation) 
-    {
-        navigator.geolocation.getCurrentPosition(function(position) 
-        {
             var pos = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
             
             var Localisation = new google.maps.Marker({
