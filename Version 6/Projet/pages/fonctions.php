@@ -1,4 +1,8 @@
 <?php
+/** Fonction de debug 
+ * -------------------
+ * @param type $var 
+ */
 function var_dump_pre($var)
 {
     echo '<pre>';
@@ -55,6 +59,11 @@ function recupere_users_par_id($id, $bdd)
     return $requete->fetchAll();
 }
 
+/**Fonction qui récupère les utilisateurs
+ * ---------------------------------------
+ * @param type $bdd : connection PDO
+ * @return type type Tableaux multidimensionnel
+ */
 function recupere_utilisateur($bdd)
 {
     $sql = 'SELECT id_user, pseudo, admin FROM users';
@@ -78,6 +87,12 @@ function ajout_personne($pseudo, $mdp, $bdd)
 
 /****************************************** PAGE AFFICHER FONTAINES ****************************************/
 
+/**
+ * Fonction qui recupere toutes les fontaines de la base
+ * ------------------------------------------------------
+ * @param type $bdd : connection PDO
+ * @return type Tableaux multidimensionnel
+ */
 function recupere_fontaines($bdd)
 {
     $sql = "select id_fontaine,lat,lng,active from fontaines";
@@ -85,6 +100,11 @@ function recupere_fontaines($bdd)
     return $request_fontaines->fetchAll();
 }
 
+/** Fonction
+ *-------------------------------- 
+ * @param type $array
+ * @return string
+ */
 function instancier_tableau_javascript($array)
 {
     $affichage = '<input type="hidden" id="nb_items" class="lat" value="' . count($array) . '" />';
@@ -99,6 +119,14 @@ function instancier_tableau_javascript($array)
 }
 
 /****************************************** PAGE AJOUT FONTAINES ****************************************/
+/** Fonction pour ajouter une fontaine 
+ * -------------------------------------
+ * @param type $lat : Longitude
+ * @param type $lng : Longitude
+ * @param type $id : id de l'utilisateur
+ * @param type $bdd : connection PDO
+ * @return type
+ */
 function ajout_fontaine($lat, $lng, $id, $bdd)
 {
     $sql = "insert into fontaines(lat, lng, active, id_user) values(:lat, :lng, 0, :id_user)";
@@ -112,18 +140,37 @@ function ajout_fontaine($lat, $lng, $id, $bdd)
     return $bdd->lastInsertId();
 }
 /****************************************** GESTION UTILISATEUR ****************************************/
+/** Fonction pour modifier un utilisateur
+ * ---------------------------------------
+ * @param type $id : id utilisateur
+ * @param type $newMdp : Nouveau mot de passe
+ * @param type $rayon : Rayon
+ * @param type $bdd : connection PDO
+ */
 function modifierUser($id, $newMdp,$rayon, $bdd){
   $sql = "UPDATE users SET mdp = '$newMdp', rayon = '$rayon' WHERE id_user = $id ";
   $request = $bdd->prepare($sql);
   $request->execute();
 }
 
+/** Fonction pour récupérer le mdp et le rayon d'un utilisateur
+ * -------------------------------------------------------------
+ * @param type $id : id de l'utilisateur
+ * @param type $bdd : connection PDO
+ * @return type : Tableaux multidimensionnel
+ */
 function recupere_infos_modif_utilisateur($id, $bdd){
   $sql = "SELECT mdp, rayon FROM users WHERE id_user = $id ";
   $request = $bdd->query($sql);
   return $request->fetchAll();
 }
 /****************************************** PAGE GESTION FONTAINES ****************************************/
+/** Fonction pour afficher les fontaines
+ * --------------------------------------
+ * @param type $array
+ * @param type $mode
+ * @return string
+ */
 function affiche_fontaines($array, $mode)
 {
     $affichage = "";
@@ -134,14 +181,7 @@ function affiche_fontaines($array, $mode)
     {
         if($array[$i][3] == $mode)
         {
-            /*if($i%2 == 0)
-            {
-                $class = "ligne_fonce";
-            }
-            else
-            {*/
                 $class = "ligne_clair";
-            //}
 
             $affichage .= '<div class="'. $class .'">';
             $affichage .= '<div class="cellule">'.$array[$i][0].'</div>';
@@ -163,6 +203,11 @@ function affiche_fontaines($array, $mode)
     return $affichage;
 }
 
+/** Fonction pour supprimer une fontaine
+ * --------------------------------------
+ * @param type $id : id de la fontaine
+ * @param type $bdd : connection PDO
+ */
 function supprimer_fontaine($id, $bdd)
 {
     $sql = 'delete from fontaines where id_fontaine = :id';
@@ -170,6 +215,11 @@ function supprimer_fontaine($id, $bdd)
     $request->execute(array('id' => $id));
 }
 
+/** Fonction pour valider une fontaine
+ * ------------------------------------
+ * @param type $id : id de la fontaine
+ * @param type $bdd : connection PDO
+ */
 function valider_fontaine($id, $bdd)
 {
     $sql = 'UPDATE fontaines SET active = 1 where id_fontaine = :id';
@@ -178,6 +228,11 @@ function valider_fontaine($id, $bdd)
 }
 
 /****************************************** PAGE GESTION UTILISATEURS ****************************************/
+/** Fonction pour afficher les utilisateurs
+ * ------------------------------------------
+ * @param type $array
+ * @return string
+ */
 function affiche_utilisateur($array)
 {
     $affichage = "";
@@ -186,14 +241,7 @@ function affiche_utilisateur($array)
 
     for($i=0;$i<count($array);$i++)
     {
-            /*if($i%2 == 0)
-            {
-                $class = "ligne_fonce";
-            }
-            else
-            {*/
                 $class = "ligne_clair";
-            //}
 
             $affichage .= '<div class="'. $class .'">';
             $affichage .= '<div class="cellule">'.$array[$i][0].'</div>';
@@ -222,6 +270,11 @@ function affiche_utilisateur($array)
     return $affichage;
 }
 
+/** Fonction pour supprimer un utilisateur
+ * ---------------------------------------
+ * @param type $id : id de l'utilisateur
+ * @param type $bdd : connection PDO
+ */
 function supprimer_utilisateur($id, $bdd)
 {
     $sql = 'delete from users where id_user = :id';
@@ -229,6 +282,12 @@ function supprimer_utilisateur($id, $bdd)
     $request->execute(array('id' => $id));
 }
 
+/** Fonction pour changer l'etat d'un utilisateur
+ * -----------------------------------------------
+ * @param type $id
+ * @param type $admin
+ * @param type $bdd : connection PDO
+ */
 function valider_admin_utilisateur($id, $admin, $bdd)
 {
     $sql = 'UPDATE users SET admin = :admin where id_user = :id';
