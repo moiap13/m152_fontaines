@@ -42,7 +42,7 @@ function connexion($db_name, $host, $user, $pwd)
  */
 function Login($pseudo, $mdp, $bdd)
 {
-    $sql = 'SELECT id_user FROM users WHERE (pseudo="'.$pseudo.'" AND mdp="'.$mdp.'")';
+    $sql = 'SELECT id_user FROM users WHERE (pseudo="'.$pseudo.'" AND mdp="'.$mdp.'" AND deleted=0 )';
     $requete = $bdd->query($sql);
     return $requete->fetchAll();
 }
@@ -54,7 +54,7 @@ function Login($pseudo, $mdp, $bdd)
  */
 function recupere_users_par_id($id, $bdd)
 {
-    $sql = 'SELECT pseudo, admin FROM users WHERE id_user=' . $id;
+    $sql = 'SELECT pseudo, admin FROM users WHERE deleted=0 AND id_user=' . $id;
     $requete = $bdd->query($sql);
     return $requete->fetchAll();
 }
@@ -66,7 +66,7 @@ function recupere_users_par_id($id, $bdd)
  */
 function recupere_utilisateur($bdd)
 {
-    $sql = 'SELECT id_user, pseudo, admin FROM users';
+    $sql = 'SELECT id_user, pseudo, admin FROM users WHERE deleted=0';
     $requete = $bdd->query($sql);
     return $requete->fetchAll();
 }
@@ -277,7 +277,7 @@ function affiche_utilisateur($array)
  */
 function supprimer_utilisateur($id, $bdd)
 {
-    $sql = 'delete from users where id_user = :id';
+    $sql = 'UPDATE users SET deleted = 1 WHERE id_user = :id';
     $request = $bdd->prepare($sql);
     $request->execute(array('id' => $id));
 }

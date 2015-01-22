@@ -69,6 +69,7 @@ Version : 2.0
             <section>
                 <div id='map-canvas' style="height: 80%;"></div> 
                 <div class='mapFooter'>
+                    <div class="line_map_footer"><input type="range" value="500" max="5000" min="500" step="100"></div>
                     <div class="line_map_footer"><span id="nb_fontaines"></span></div>
                     <div class="line_map_footer"><span id="nom_rue"></span></div>
                     <?php echo $input_cache_mode; echo $input_cache_latlng; echo $input_cache_rayon;?>
