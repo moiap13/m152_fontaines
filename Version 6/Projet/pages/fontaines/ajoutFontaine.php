@@ -73,7 +73,7 @@ Version : 2.0
                         <label>Lat : </label><input type="number" name="tbx_tmp_Lat" value="<?php echo $lat; ?>" id="tbx_tmp_lat" onKeypress="tbx_changed_value()" onchange="tbx_changed_value()"/>
                         <label>Lng : </label><input type="number" name="tbx_tmp_lng" value="<?php echo $lng; ?>" id="tbx_tmp_lng" onKeypress="tbx_changed_value()" onchange="tbx_changed_value()"/>
                     </div>  
-                    <div id='map-canvas' style="height: 80%;"></div> 
+                    <div id='map-canvas' ></div> 
                     <div class="mapFooter">
                         <div class="line_map_footer"><span id="nom_rue"></span></div>
                         <div class="line_map_footer">

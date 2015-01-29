@@ -66,10 +66,11 @@ Version : 2.0
                     <?php echo $liens[0]; echo $liens[1]; echo $liens[2]; ?>
                 </ul>
             </nav>
-            <section>
-                <div id='map-canvas' style="height: 80%;"></div> 
+            <section class="large_section">
+                <div id='map-canvas' ></div> 
                 <div class='mapFooter'>
-                    <div class="line_map_footer"><input type="range" value="500" max="5000" min="500" step="100"></div>
+                    <div class="line_map_footer"><input type="range" id="rayon_range" onchange="changeRayon();rangevalue.value=value + ' m'" value="500" max="5000" min="500" step="100"></div>
+                    <div id="rayon_display"><p>Rayon en mètres : <output id="rangevalue">500 m</output></p></div>
                     <div class="line_map_footer"><span id="nb_fontaines"></span></div>
                     <div class="line_map_footer"><span id="nom_rue"></span></div>
                     <?php echo $input_cache_mode; echo $input_cache_latlng; echo $input_cache_rayon;?>

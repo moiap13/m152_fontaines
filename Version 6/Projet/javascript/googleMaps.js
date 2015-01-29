@@ -8,6 +8,9 @@ var geocoder;
 var marker;
 var rayon= 500;
 var nb_fontaines = 0;
+var pos;
+var map;
+var monCercle;
 
 function initialize(mode) 
 {
@@ -25,7 +28,7 @@ function initialize(mode)
         mapTypeId:google.maps.MapTypeId.HYBRID
     };
     
-    var map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
+    map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
     geocoder = new google.maps.Geocoder();
     
     
@@ -34,7 +37,7 @@ function initialize(mode)
         rayon = document.getElementById("hidden_rayon").value;
         var array = recupere_lat_lng();
     }
-            var pos = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+            pos = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
             
             var Localisation = new google.maps.Marker({
                 map: map,
@@ -46,7 +49,7 @@ function initialize(mode)
             
             if(mode == 0)
             {
-                var monCercle = new google.maps.Circle({
+                    monCercle = new google.maps.Circle({
                     map: map,
                     center: pos,
                     radius: parseInt(rayon)
@@ -91,6 +94,16 @@ function initialize(mode)
         handleNoGeolocation(false);
     }
     
+}
+
+function changeRayon(){
+    rayon = document.getElementById("rayon_range").value;
+    monCercle.setMap(null);
+    monCercle = new google.maps.Circle({
+                    map: map,
+                    center: pos,
+                    radius: parseInt(rayon)
+                }); 
 }
 
 function handleNoGeolocation(errorFlag) {

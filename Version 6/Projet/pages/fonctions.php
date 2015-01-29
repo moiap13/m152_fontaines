@@ -107,12 +107,21 @@ function recupere_fontaines($bdd)
  */
 function instancier_tableau_javascript($array)
 {
-    $affichage = '<input type="hidden" id="nb_items" class="lat" value="' . count($array) . '" />';
+    $nb_items = 0;
+    for($i=0;$i<count($array);$i++)
+    {
+        if($array[$i][3] == 1)
+            $nb_items++;
+    }
+    $affichage = '<input type="hidden" id="nb_items" class="lat" value="' . $nb_items . '" />';
     
     for($i=0;$i<count($array);$i++)
     {
-        $affichage .= '<input type="hidden" id="lat_' . $i . '" class="lat" value="' . $array[$i][1] . '" />';  
-        $affichage .= '<input type="hidden" id="lng_' . $i . '" class="lng" value="' . $array[$i][2] . '" />';  
+        if($array[$i][3] == 1)
+        {
+            $affichage .= '<input type="hidden" id="lat_' . $i . '" class="lat" value="' . $array[$i][1] . '" />';  
+            $affichage .= '<input type="hidden" id="lng_' . $i . '" class="lng" value="' . $array[$i][2] . '" />';  
+        }
     }
     
     return $affichage;
