@@ -3,72 +3,68 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var myLatlng = new google.maps.LatLng(46.797671, 8.236301);
-var geocoder;
-var marker;
+//var myLatlng = new google.maps.LatLng(76.797671, 48.236301);
+
+var markerArray = new Array();
+var infoWinArray = new Array();
 var rayon= 500;
 var nb_fontaines = 0;
-var pos;
+var pos = new google.maps.LatLng();
 var map;
 var monCercle;
 var mode = 0;
+var DEF_ZOOM = 13;
+/**
+ * Instancie une nouvelle map en positionnant un marker sur la position courante du user
+ * @param {type} position
+ * @returns {google.maps.Map}
+ */
+function instantiateMapWithCurrentPos(position)  {
+    
+    pos =  new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+    var mapOptions = {
+        center: pos,
+        zoom: DEF_ZOOM,
+        mapTypeId:google.maps.MapTypeId.HYBRID
+        };
+
+    //instanciation de la map
+    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+    //marker sur notre position
+     var markerCurrentPosition = new google.maps.Marker({
+        map: map,
+        position: pos,
+        icon: "../../img/Marker.png"
+    });
+    return map;
+}
+
+
 function initialize(mode) 
 {
-    
-//    // Try HTML5 geolocation
+
+    // Try HTML5 geolocation
     if(navigator.geolocation) 
     {
-//       
         navigator.geolocation.getCurrentPosition(function(position) 
-        {
-            var mapOptions = {
-        center: myLatlng,
-        zoom: 13,
-        mapTypeId:google.maps.MapTypeId.HYBRID
-    };
-    
-    map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
-    geocoder = new google.maps.Geocoder();
-    
-    
-    if(mode == 0)
-    {
-        rayon = document.getElementById("hidden_rayon").value;
-        var array = recupere_lat_lng();
-    }
-            pos = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-
-            map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
-            geocoder = new google.maps.Geocoder();
-
-            
-            
-            if(mode == 0)
+        {          
+            map = instantiateMapWithCurrentPos(position) ;
+         
+            if(mode === 0)
             {
                 rayon = document.getElementById("hidden_rayon").value;
-                var array = recupere_lat_lng();
-            }
-            var pos = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-            
-            var Localisation = new google.maps.Marker({
-                map: map,
-                position: pos,
-                icon: "../../img/Marker.png"
-            });
-            
-            map.setCenter(pos);
-            
-            if(mode == 0)
-            {
-                    monCercle = new google.maps.Circle({
+                array = recupere_lat_lng();
+         
+                monCercle = new google.maps.Circle({
                     map: map,
                     center: pos,
                     radius: parseInt(rayon)
                 }); 
                 
-                initialise_tableau_marker(array, map, rayon, pos);
+                affiche_tableau_marker(array, map, rayon, pos);
             }
-            else if(mode == 1)
+            else if(mode === 1)
             {
                 set_lat_lng_input(pos);
                 
@@ -83,13 +79,13 @@ function initialize(mode)
                 
                 tbx_changed_value();
             }
-            else if(mode == 2)
+            else if(mode === 2)
             {
                 var latlng_str = document.getElementById('hidden_latlng').value;
                 
                 var fontaine = new google.maps.LatLng(latlng_str.split(',')[0], latlng_str.split(',')[1]);
                 
-                marker = new google.maps.Marker({
+                var selectedMarker = new google.maps.Marker({
                         position: fontaine,
                         map: map,
                         title	: "Fontaine a activer",
@@ -98,10 +94,10 @@ function initialize(mode)
                     
                 map.setCenter(fontaine);  
             }
-                
             
-            codeLatLng(pos, map, 1);
-        
+            
+           // codeLatLng(pos, map, 1);
+            getAdressFromLatLngAndCreateMarker(pos,1);
             
             
           
@@ -129,6 +125,8 @@ function changeRayon(){
                     center: pos,
                     radius: parseInt(rayon)
                 }); 
+   removeMarkersFromMap();
+   affiche_tableau_marker(array, map, rayon, pos);             
 }
 function handleNoGeolocation(errorFlag) {
     if (errorFlag) {
@@ -137,44 +135,56 @@ function handleNoGeolocation(errorFlag) {
         var content = 'Error: Votre navigateur ne sfonctionne pas avec la geolocation.';
     }
 };
-//
-function codeLatLng(latlng, map, mode) 
-{
-    var infowindow = new google.maps.InfoWindow();
-
-    geocoder.geocode({'latLng': latlng}, function(results, status) 
-    {
+/**
+ * 
+ * @param {type} latlng
+ * @param {type} mode si 0 alors on place les markers de la fontaine
+ * @returns {undefined}
+ */
+function getAdressFromLatLngAndCreateMarker(latlng, mode){
+     var geocoder = new google.maps.Geocoder();
+       var adresse = "Adresse inconnue";
+     geocoder.geocode({'latLng': latlng}, function(results, status) {
+    
         if (status == google.maps.GeocoderStatus.OK) 
         {
             if (results[1]) 
             {
-                if(mode == 0)
-                {
-                    map.setZoom(11);
-                    marker = new google.maps.Marker({
-                        position: latlng,
-                        map: map,
-                        title	: "Fontaine",
-                        icon: "../../img/icon.png"
-                    });
-                    infowindow.setContent(results[1].formatted_address);
-                    infowindow.open(map, marker);
-                }
-                else
-                {
-                    map.setZoom(11);
-                    var nom_rue = document.getElementById("nom_rue");
-                    nom_rue.innerHTML = "Vous êtes à : " + results[1].formatted_address;
-                }
+                adresse = results[1].formatted_address;
             }
-            else 
-            {
-                alert('No results found');
-            }
-        }
-        else 
+        } else 
         {
-            alert('Geocoder failed due to: ' + status);
+            adresse = 'Geocoder failed due to: ' + status;
         }
+     
+        
+        //si on place les markers de fontaine sur la map, alors on set leur infowindow avec l'adresse
+        //TODO : code à repenser!
+        if(mode==0){
+            showFontaineMarker(latlng, adresse);
+        } else {
+               //montre notre adresse courante dans la div sous la map
+            var nom_rue = document.getElementById("nom_rue");
+            nom_rue.innerHTML = "Vous êtes à : " + adresse;
+        }
+        
     });
+    
 }
+
+function showFontaineMarker(latlng, adresse){
+     var infowindow = new google.maps.InfoWindow();
+     var marker = new google.maps.Marker({
+            position: latlng,
+            map: map,
+            title	: "Fontaine",
+            icon: "../../img/icon.png"
+        });
+        ;
+     infowindow.setContent(adresse);
+     infowindow.open(map, marker);
+     markerArray.push(marker);
+     infoWinArray.push(infowindow);
+}
+
+

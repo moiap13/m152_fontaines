@@ -25,7 +25,13 @@ function recupere_lat_lng()
     return array;
 }
 
-function initialise_tableau_marker(array, map, _rayon, point_localisation)
+function removeMarkersFromMap(){
+    for (var i = 0; i < markerArray.length; i++) {
+    markerArray[i].setMap(null);
+  }
+}
+
+function affiche_tableau_marker(array, map, _rayon, point_localisation)
 {
     for(var i =0; i<array.length;i++)
     {
@@ -34,12 +40,11 @@ function initialise_tableau_marker(array, map, _rayon, point_localisation)
         
         if(distance <= _rayon)
         {
-            codeLatLng(latlng, map, 0);
+            getAdressFromLatLngAndCreateMarker(latlng,0);
             nb_fontaines++;
         }
     }
-
-    
+ 
     var span_nb_fontaines = document.getElementById("nb_fontaines");
     span_nb_fontaines.innerHTML = "Nombre de fontaines autour de vous : " + nb_fontaines;
 }
