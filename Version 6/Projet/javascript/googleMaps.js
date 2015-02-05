@@ -126,6 +126,7 @@ function changeRayon(){
                     radius: parseInt(rayon)
                 }); 
    removeMarkersFromMap();
+   nb_fontaines = 0;
    affiche_tableau_marker(array, map, rayon, pos);             
 }
 function handleNoGeolocation(errorFlag) {
