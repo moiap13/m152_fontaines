@@ -8,15 +8,10 @@ var geocoder;
 var marker;
 var rayon= 500;
 var nb_fontaines = 0;
-<<<<<<< Updated upstream
 var pos;
 var map;
 var monCercle;
-
-=======
-var map;
 var mode = 0;
->>>>>>> Stashed changes
 function initialize(mode) 
 {
     
@@ -27,7 +22,6 @@ function initialize(mode)
         navigator.geolocation.getCurrentPosition(function(position) 
         {
             var mapOptions = {
-<<<<<<< Updated upstream
         center: myLatlng,
         zoom: 13,
         mapTypeId:google.maps.MapTypeId.HYBRID
@@ -43,12 +37,6 @@ function initialize(mode)
         var array = recupere_lat_lng();
     }
             pos = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-=======
-                center: myLatlng,
-                zoom: 13,
-                mapTypeControl: true,
-                mapTypeId:google.maps.MapTypeId.HYBRID
-            };
 
             map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
             geocoder = new google.maps.Geocoder();
@@ -61,7 +49,6 @@ function initialize(mode)
                 var array = recupere_lat_lng();
             }
             var pos = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
->>>>>>> Stashed changes
             
             var Localisation = new google.maps.Marker({
                 map: map,
@@ -133,7 +120,6 @@ function initialize(mode)
     }
 //    
 }
-<<<<<<< Updated upstream
 
 function changeRayon(){
     rayon = document.getElementById("rayon_range").value;
@@ -144,10 +130,6 @@ function changeRayon(){
                     radius: parseInt(rayon)
                 }); 
 }
-
-=======
-//
->>>>>>> Stashed changes
 function handleNoGeolocation(errorFlag) {
     if (errorFlag) {
         var content = 'Error: Le service de geolocation a échoué.';
