@@ -8,22 +8,27 @@ var geocoder;
 var marker;
 var rayon= 500;
 var nb_fontaines = 0;
+<<<<<<< Updated upstream
 var pos;
 var map;
 var monCercle;
 var array;
 
+=======
+var map;
+var mode = 0;
+>>>>>>> Stashed changes
 function initialize(mode) 
 {
     
-
-    // Try HTML5 geolocation
+//    // Try HTML5 geolocation
     if(navigator.geolocation) 
     {
-        
+//       
         navigator.geolocation.getCurrentPosition(function(position) 
         {
             var mapOptions = {
+<<<<<<< Updated upstream
         center: myLatlng,
         zoom: 13,
         mapTypeId:google.maps.MapTypeId.HYBRID
@@ -39,6 +44,25 @@ function initialize(mode)
         array = recupere_lat_lng();
     }
             pos = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+=======
+                center: myLatlng,
+                zoom: 13,
+                mapTypeControl: true,
+                mapTypeId:google.maps.MapTypeId.HYBRID
+            };
+
+            map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
+            geocoder = new google.maps.Geocoder();
+
+            
+            
+            if(mode == 0)
+            {
+                rayon = document.getElementById("hidden_rayon").value;
+                var array = recupere_lat_lng();
+            }
+            var pos = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+>>>>>>> Stashed changes
             
             var Localisation = new google.maps.Marker({
                 map: map,
@@ -61,6 +85,16 @@ function initialize(mode)
             else if(mode == 1)
             {
                 set_lat_lng_input(pos);
+                
+                google.maps.event.addListener(map, 'click', function(event) {
+                    var click_latlng = event.latLng;
+                    set_lat_lng_input(click_latlng);
+                    fontaine_tmp.setMap(null);
+                    tbx_changed_value();
+                    
+                });
+                
+                
                 tbx_changed_value();
             }
             else if(mode == 2)
@@ -81,21 +115,26 @@ function initialize(mode)
                 
             
             codeLatLng(pos, map, 1);
+        
             
             
+          
         }, function(err) 
         {
             console.log( err.code + " " + err.message);
             handleNoGeolocation(true);
         });
+//        
+//        
     }
     else 
     {
         // Browser doesn't support Geolocation
         handleNoGeolocation(false);
     }
-    
+//    
 }
+<<<<<<< Updated upstream
 
 function changeRayon(){
     rayon = document.getElementById("rayon_range").value;
@@ -108,6 +147,9 @@ function changeRayon(){
    initialise_tableau_marker(array, map, rayon, pos);             
 }
 
+=======
+//
+>>>>>>> Stashed changes
 function handleNoGeolocation(errorFlag) {
     if (errorFlag) {
         var content = 'Error: Le service de geolocation a échoué.';
@@ -115,7 +157,7 @@ function handleNoGeolocation(errorFlag) {
         var content = 'Error: Votre navigateur ne sfonctionne pas avec la geolocation.';
     }
 };
-
+//
 function codeLatLng(latlng, map, mode) 
 {
     var infowindow = new google.maps.InfoWindow();
@@ -156,4 +198,3 @@ function codeLatLng(latlng, map, mode)
         }
     });
 }
-
