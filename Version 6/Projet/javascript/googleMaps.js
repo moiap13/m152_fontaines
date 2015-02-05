@@ -12,7 +12,6 @@ var nb_fontaines = 0;
 var pos;
 var map;
 var monCercle;
-var array;
 
 =======
 var map;
@@ -41,7 +40,7 @@ function initialize(mode)
     if(mode == 0)
     {
         rayon = document.getElementById("hidden_rayon").value;
-        array = recupere_lat_lng();
+        var array = recupere_lat_lng();
     }
             pos = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
 =======
@@ -144,7 +143,6 @@ function changeRayon(){
                     center: pos,
                     radius: parseInt(rayon)
                 }); 
-   initialise_tableau_marker(array, map, rayon, pos);             
 }
 
 =======
