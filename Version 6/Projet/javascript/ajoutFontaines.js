@@ -48,18 +48,16 @@ function tbx_changed_value(mode)
     map.setCenter(pos);
     
     fontaine_tmp = new google.maps.Marker({
-        map: map,
-        position: pos,
-        title	: "Fontaine",
-        icon: "../../img/icon.png"
+        map      : map,
+        position : pos,
+        title	 : "Fontaine",
+        icon     : "../../img/icon.png"
     });
     
     
     
     tbx_lat.value = _lat;
     tbx_lng.value = _lng;
-    
-    google.maps.event.trigger(map, 'resize');
 }
 //
 function recupere_latlng_click(location) 
