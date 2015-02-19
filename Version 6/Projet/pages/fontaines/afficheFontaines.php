@@ -19,6 +19,8 @@ if(isset($_SESSION["CONN"]) && $_SESSION["CONN"])
     $liens[2] = '<li role="presentation"><a href="../utilisateurs/parametreCompte.php">Parametres du compte</a></li>';
 }
 
+$savedRayon = recupere_infos_modif_utilisateur($_SESSION["ID"], $bdd)[0][1];
+
 if(isset($_SESSION["CONN"]) && $_SESSION["CONN"])
     $input_cache_rayon = '<input type="hidden" id="hidden_rayon" value="'. recupere_infos_modif_utilisateur($_SESSION["ID"], $bdd)[0][1] .'" />';
 else
@@ -68,11 +70,10 @@ Version : 2.0
             </nav>
             <section class="large_section">
                 <div id='map-canvas' ></div> 
-                <div class='mapFooter'>
-                    <div class="line_map_footer"><input type="range" id="rayon_range" onchange="changeRayon();rangevalue.value=value + ' m'" value="500" max="5000" min="500" step="100"></div>
-                    <div id="rayon_display"><p>Rayon en mètres : <output id="rangevalue">500 m</output></p></div>
-                    <div class="line_map_footer"><span id="nb_fontaines"></span></div>
-                    <div class="line_map_footer"><span id="nom_rue"></span></div>
+                <div class='mapFooter' style="height: 190px;">
+                    <div class="line_map_footer"><input type="range" id="rayon_range" onchange="changeRayon();rangevalue.value=value + ' m'" value='<?php echo $savedRayon ?>' max="5000" min="500" step="100"></div>
+                    <div id="rayon_display"><p>Rayon en mètres : <output id="rangevalue"><?php echo $savedRayon ?></output></p></div>
+                    <div class="line_map_footer"><span id="nb_fontaines"></span><br><span id="nom_rue"></span></div>
                     <?php echo $input_cache_mode; echo $input_cache_latlng; echo $input_cache_rayon;?>
                 </div>
             </section>
