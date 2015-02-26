@@ -142,11 +142,11 @@ function handleNoGeolocation(errorFlag) {
  * @param {type} mode si 0 alors on place les markers de la fontaine
  * @returns {undefined}
  */
-function getAdressFromLatLngAndCreateMarker(latlng, mode){
-     var geocoder = new google.maps.Geocoder();
-       var adresse = "Adresse inconnue";
-     geocoder.geocode({'latLng': latlng}, function(results, status) {
-    
+function getAdressFromLatLngAndCreateMarker(latlng,id_fontaine, photo, nom_photo, mode){
+        var geocoder = new google.maps.Geocoder();
+        var adresse = "Adresse inconnue";
+        geocoder.geocode({'latLng': latlng}, function(results, status) {
+
         if (status == google.maps.GeocoderStatus.OK) 
         {
             if (results[1]) 
@@ -162,7 +162,7 @@ function getAdressFromLatLngAndCreateMarker(latlng, mode){
         //si on place les markers de fontaine sur la map, alors on set leur infowindow avec l'adresse
         //TODO : code à repenser!
         if(mode==0){
-            showFontaineMarker(latlng, adresse);
+            showFontaineMarker(latlng, adresse, id_fontaine, photo, nom_photo);
         } else {
                //montre notre adresse courante dans la div sous la map
             var nom_rue = document.getElementById("nom_rue");
@@ -173,19 +173,31 @@ function getAdressFromLatLngAndCreateMarker(latlng, mode){
     
 }
 
-function showFontaineMarker(latlng, adresse){
-     var infowindow = new google.maps.InfoWindow();
-     var marker = new google.maps.Marker({
+function showFontaineMarker(latlng, adresse, id_fontaine, photo, nom_photo){
+    var infowindow = new google.maps.InfoWindow();
+    var marker = new google.maps.Marker({
             position: latlng,
             map: map,
             title	: "Fontaine",
             icon: "../../img/icon.png"
         });
         ;
-     infowindow.setContent(adresse);
-     infowindow.open(map, marker);
-     markerArray.push(marker);
-     infoWinArray.push(infowindow);
+    
+    if(photo == 1)
+    {
+        var image = '<img src="../../img/Fontaines/' + id_fontaine + '/' + nom_photo + '" width="100" height="100"/>';
+    }
+    else
+    {
+        var image = '';
+    }
+    
+    console.log(image);
+    
+    infowindow.setContent(image + adresse);
+    infowindow.open(map, marker);
+    markerArray.push(marker);
+    infoWinArray.push(infowindow);
 }
 
 

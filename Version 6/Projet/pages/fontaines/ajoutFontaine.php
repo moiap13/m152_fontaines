@@ -34,7 +34,37 @@ if(isset($_REQUEST["btn_ajouter"]))
     $lat = $_REQUEST["tbx_Lat"];
     $lng = $_REQUEST["tbx_Lng"];
     
-    ajout_fontaine($lat, $lng, $id_user, $bdd);
+    if(isset($_FILES['photo_fontaine']['error']) && $_FILES['photo_fontaine']['error'] != 4)
+    {
+        $photos = 1;
+        
+        if(isset($_REQUEST['nom_fontaine']) && $_REQUEST['nom_fontaine'] != '')
+        {
+            $nom_fontaine = $_REQUEST['nom_fontaine'] . get_image_format_file($_FILES['photo_fontaine']['type']);
+        }
+        else
+        {
+            $nom_fontaine = $_FILES['photo_fontaine']['name'];
+        }
+    }
+    else 
+    {
+        echo $photos = 0;
+    }
+    
+    
+    
+    
+   
+    $lastinsertid = ajout_fontaine($lat, $lng, $photos, $id_user, $bdd);
+        
+    if($lastinsertid > -1 && $photos == 1)
+    {
+        mkdir('../../img/Fontaines/' . $lastinsertid);
+
+        move_uploaded_file($_FILES['photo_fontaine']['tmp_name'], '../../img/Fontaines/'. $lastinsertid . '/' . $nom_fontaine);
+    }
+    
     header('Location: ../../index.php?error=Ajouter avec succès');
 }
 ?>
@@ -77,8 +107,17 @@ Version : 2.0
                     <div class="mapFooter">
                         <div class="line_map_footer"><span id="nom_rue"></span></div>
                         <div class="line_map_footer">
-                            <form method="post" action="#">
-                                <input type="submit" value="Ajouter" name="btn_ajouter" />
+                            <form method="post" action="#" enctype="multipart/form-data">
+                                <div id="div_form">  
+                                    <div><input type="file" name="photo_fontaine" /></div>
+                                    <div>
+                                        <label>Nom fontaine : (facultatif)</label>
+                                        <input type="text" name="nom_fontaine" />
+                                    </div>
+                                    <div>
+                                        <input type="submit" value="Ajouter" name="btn_ajouter" />
+                                    </div>
+                                </div>
                                 <input type="hidden" name="tbx_Lat" value="" id="tbx_lat" />
                                 <input type="hidden" name="tbx_Lng" value="" id="tbx_lng" />
                             </form>

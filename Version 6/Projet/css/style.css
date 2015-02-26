@@ -182,11 +182,12 @@ footer {
 {
     width: 100%;
     height: 50%;
+    overflow: auto;
 }
 .liste_fontaines
 {
     width: 90%;
-    height: 100%;
+    height: 240px;
     margin: auto;
     overflow: auto;
 }
@@ -248,4 +249,19 @@ input[type="range"]:before {
 input[type="range"]:after {
     right: 0em;
     content: attr(max);
+}
+
+#div_form
+{
+    width: 90%;
+    height: 30px;
+    margin: auto;
+    //background-color : yellow;
+}
+#div_form div
+{
+    width: 33%;
+    height: 30px;
+    float: left;
+    //background-color : red;
 }

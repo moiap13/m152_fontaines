@@ -9,6 +9,76 @@ function var_dump_pre($var)
         var_dump($var);
     echo '</pre>';
 }
+
+/**
+ * Fonction pour donner les extensions aux images importées
+ * ---------------------------------------------------------
+ * @param type $type type donnée par $_FILE
+ * @return string un string contenant l'extension
+ */
+function get_image_format_file($type)
+{
+    $format = "";
+    
+    switch ($type)
+    {
+        case 'image/png':
+            $format = '.png';
+            break;
+        case 'image/jpeg':
+            $format = '.jpg';
+            break;
+        case 'image/gif':
+            $format = '.gif';
+            break;
+        case 'image/bmp':
+            $format = '.bmp';
+            break;
+        case 'image/vnd.microsoft.icon':
+            $format = '.ico';
+            break;
+        case 'image/tiff':
+            $format = '.tif';
+            break;
+        case 'image/svg+xml':
+            $format = '.svg';
+            break;
+    }
+     
+    return $format;
+}
+
+function dir_exist($dir)
+{
+    $result = false;
+    
+    if(file_exists($dir) && is_dir($dir))
+        $result = true;
+    
+    return $result;
+}
+
+function put_dirfile_array($path)
+{
+    $array = "";
+    $i =0;
+    
+    if ($dossier = opendir($path)) 
+    {
+        while (false !== ($file = readdir($dossier))) 
+        {
+            if ($file != "." && $file != ".." && $file != ".DS_Store") 
+            {
+                $array[$i] = $file;
+                $i++;
+            }
+        }
+        
+        closedir($dossier);
+    }
+    
+    return $array;
+}
  /************************************ FONCTIONS EN LIEN AVEC LA BASE DE DONNEÉ ***************************************/
  
 /*************************************************** PAGE INDEX ********************************************************/
@@ -95,9 +165,38 @@ function ajout_personne($pseudo, $mdp, $bdd)
  */
 function recupere_fontaines($bdd)
 {
-    $sql = "select id_fontaine,lat,lng,active from fontaines";
+    $sql = "select id_fontaine,lat,lng,active, photo from fontaines";
     $request_fontaines = $bdd->query($sql);
     return $request_fontaines->fetchAll();
+}
+
+function recupere_photo_fontaine($id)
+{
+    $i = 0;
+    $array = array();
+    
+    if(dir_exist('../../img/Fontaines/' . $id))
+    {
+        $dossier = opendir('../../img/Fontaines/' . $id); 
+        
+        while (false !== ($file = readdir($dossier))) 
+        {
+            if ($file != "." && $file != ".." && $file != ".DS_Store") 
+            {
+                $array[$i] = $file;
+                $i++;
+            }
+        }
+        
+        closedir($dossier);
+        return $array;
+    }
+    else
+    {
+        return null;
+    }
+    
+    
 }
 /**
  * D'après un tableau ecrire des input type hidden pour pouvoir passer les valeurs entre javascript et php
@@ -119,8 +218,14 @@ function instancier_tableau_javascript($array)
     {
         if($array[$i][3] == 1)
         {
+            $photo = recupere_photo_fontaine($array[$i][0]);
+            
+            $affichage .= '<input type="hidden" id="id_fontaine_' . $i . '" class="lat" value="' . $array[$i][0] . '" />';
             $affichage .= '<input type="hidden" id="lat_' . $i . '" class="lat" value="' . $array[$i][1] . '" />';  
-            $affichage .= '<input type="hidden" id="lng_' . $i . '" class="lng" value="' . $array[$i][2] . '" />';  
+            $affichage .= '<input type="hidden" id="lng_' . $i . '" class="lng" value="' . $array[$i][2] . '" />';
+            $affichage .= '<input type="hidden" id="photo_fontaine_' . $i . '" class="lng" value="' . $array[$i][4] . '" />'; 
+            $affichage .= '<input type="hidden" id="nom_photo_' . $i . '" class="lng" value="' . $photo[0] . '" />';
+            
         }
     }
     
@@ -136,13 +241,14 @@ function instancier_tableau_javascript($array)
  * @param type $bdd : connection PDO
  * @return type
  */
-function ajout_fontaine($lat, $lng, $id, $bdd)
+function ajout_fontaine($lat, $lng, $photos, $id, $bdd)
 {
-    $sql = "insert into fontaines(lat, lng, active, id_user) values(:lat, :lng, 0, :id_user)";
+    $sql = "insert into fontaines(lat, lng, photo, active, id_user) values(:lat, :lng, :photos, 0, :id_user)";
     $request = $bdd->prepare($sql);
     $request->execute(array(
         "lat" => $lat,
         "lng" => $lng,
+        "photos" => $photos,
         "id_user" => $id
     ));
     
