@@ -159,11 +159,15 @@ footer {
 .line_map_footer
 {
     width : 80%;
-    height: 30%;
+    height: 25%;
     text-align: center;
     margin: auto;
     margin-top: 1%;
     color: dodgerblue;
+}
+
+.Btn_Cal{
+    margin-left: 38%;
 }
 
 /*Google maps*/

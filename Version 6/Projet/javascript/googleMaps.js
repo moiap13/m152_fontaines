@@ -63,6 +63,11 @@ function initialize(mode)
                 }); 
                 
                 affiche_tableau_marker(array, map, rayon, pos);
+                google.maps.event.addListener(monCercle, 'click', function(event) {
+                    calcRoute(event.latLng);  
+                    
+                });
+               
             }
             else if(mode === 1)
             {
@@ -185,7 +190,7 @@ function showFontaineMarker(latlng, adresse, id_fontaine, photo, nom_photo){
     
     if(photo == 1)
     {
-        var image = '<img src="../../img/Fontaines/' + id_fontaine + '/' + nom_photo + '" width="100" height="100"/>';
+        infowindow.setContent(adresse);
     }
     else
     {
@@ -196,8 +201,31 @@ function showFontaineMarker(latlng, adresse, id_fontaine, photo, nom_photo){
     
     infowindow.setContent(image + adresse);
     infowindow.open(map, marker);
+        
+        calcRoute(latlng);
+        });
+
+     
     markerArray.push(marker);
     infoWinArray.push(infowindow);
 }
 
 
+function calcRoute(destination) {
+   directionsDisplay = new google.maps.DirectionsRenderer();
+   directionsDisplay.setMap(map);
+   directionsService = new google.maps.DirectionsService();
+    
+   current_pos = pos;
+   end_pos = destination;
+   var request = {
+      origin:current_pos,
+      destination:end_pos,
+      travelMode: google.maps.TravelMode.WALKING
+   };
+   directionsService.route(request, function(result, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+         directionsDisplay.setDirections(result);
+      }
+   });
+}

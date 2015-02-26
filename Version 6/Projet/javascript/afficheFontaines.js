@@ -62,8 +62,6 @@ function affiche_tableau_marker(array, map, _rayon, point_localisation)
     span_nb_fontaines.innerHTML = "Nombre de fontaines autour de vous : " + nb_fontaines;
 }
 
-
-
 $(window).load(function(){
     var mode = document.getElementById('hidden_mode').value;
     
