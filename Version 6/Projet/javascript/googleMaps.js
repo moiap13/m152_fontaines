@@ -63,10 +63,6 @@ function initialize(mode)
                 }); 
                 
                 affiche_tableau_marker(array, map, rayon, pos);
-                google.maps.event.addListener(monCercle, 'click', function(event) {
-                    calcRoute(event.latLng);  
-                    
-                });
                
             }
             else if(mode === 1)
@@ -186,11 +182,12 @@ function showFontaineMarker(latlng, adresse, id_fontaine, photo, nom_photo){
             title	: "Fontaine",
             icon: "../../img/icon.png"
         });
-        ;
+        
+    console.log(nom_photo);
     
     if(photo == 1)
     {
-        infowindow.setContent(adresse);
+        var image = '<img src="../../img/Fontaines/' + id_fontaine + '/' + nom_photo + '" width="100" height="100" />';
     }
     else
     {
@@ -199,8 +196,12 @@ function showFontaineMarker(latlng, adresse, id_fontaine, photo, nom_photo){
     
     console.log(image);
     
-    infowindow.setContent(image + adresse);
-    infowindow.open(map, marker);
+    
+    
+    google.maps.event.addListener(marker, 'click', function () {
+        // where I have added .html to the marker object.
+        infowindow.setContent(image + adresse);
+        infowindow.open(map, marker);
         
         calcRoute(latlng);
         });
