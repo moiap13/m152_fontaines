@@ -202,7 +202,6 @@ function showFontaineMarker(latlng, adresse, id_fontaine, photo, nom_photo){
         // where I have added .html to the marker object.
         infowindow.setContent(image + adresse);
         infowindow.open(map, marker);
-        
         calcRoute(latlng);
         });
 
@@ -225,6 +224,7 @@ function calcRoute(destination) {
       travelMode: google.maps.TravelMode.WALKING
    };
    directionsService.route(request, function(result, status) {
+    
       if (status == google.maps.DirectionsStatus.OK) {
          directionsDisplay.setDirections(result);
       }

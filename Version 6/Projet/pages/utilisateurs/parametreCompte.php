@@ -30,7 +30,6 @@ if(isset($_SESSION["CONN"]) && $_SESSION["CONN"])
             $newMdp = $_REQUEST['mdp'];
             $rayon = $_REQUEST['rayon'];
             modifierUser($id, $newMdp, $rayon, $bdd);
-            header('location: ../connexion/deconnexion.php');
         }      
     }
     
