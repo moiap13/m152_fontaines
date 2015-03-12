@@ -108,7 +108,7 @@ if(isset($_REQUEST["btn_envoyer"]) && $_REQUEST['mode'] == 'Inscription')
 
 if(isset($_REQUEST['error']))
 {
-    echo $_REQUEST['error'];
+    echo '<script type="text/javascript">alert("' . $_REQUEST['error'] . '");</script>';
 }
 ?>
 <!DOCTYPE html>

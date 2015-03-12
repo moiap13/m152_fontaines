@@ -15,11 +15,11 @@ if(isset($_SESSION["CONN"]) && $_SESSION["CONN"])
         $liens[0] = '<li role="presentation"><a href="./gestionFontaines.php">Gestion fontaines</a></li>';
         $liens[1] = '<li role="presentation"><a href="../utilisateurs/gestion_utilisateurs.php">Gestion Utilisateurs</a></li>';
     }
-    
+    $savedRayon = recupere_infos_modif_utilisateur($_SESSION["ID"], $bdd)[0][1];
     $liens[2] = '<li role="presentation"><a href="../utilisateurs/parametreCompte.php">Parametres du compte</a></li>';
 }
 
-$savedRayon = recupere_infos_modif_utilisateur($_SESSION["ID"], $bdd)[0][1];
+
 
 if(isset($_SESSION["CONN"]) && $_SESSION["CONN"])
     $input_cache_rayon = '<input type="hidden" id="hidden_rayon" value="'. recupere_infos_modif_utilisateur($_SESSION["ID"], $bdd)[0][1] .'" />';

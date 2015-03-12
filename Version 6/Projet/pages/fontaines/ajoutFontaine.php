@@ -49,7 +49,7 @@ if(isset($_REQUEST["btn_ajouter"]))
     }
     else 
     {
-        echo $photos = 0;
+        $photos = 0;
     }
     
     
@@ -65,7 +65,7 @@ if(isset($_REQUEST["btn_ajouter"]))
         move_uploaded_file($_FILES['photo_fontaine']['tmp_name'], '../../img/Fontaines/'. $lastinsertid . '/' . $nom_fontaine);
     }
     
-    header('Location: ../../index.php?error=Ajouter avec succès');
+    header('Location: ../../index.php?error=Enregistrer avec succès, Un administrateur doit accepter la fontaine pour qu\'elle soit visible dans j\'ai Soif');
 }
 ?>
 <!DOCTYPE html>
