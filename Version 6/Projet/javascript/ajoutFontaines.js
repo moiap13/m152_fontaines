@@ -64,19 +64,7 @@ function tbx_changed_value(mode)
 }
 //
 function recupere_latlng_click(location) 
-{
-  /*if(marker){ //on vérifie si le marqueur existe
-    marker.setPosition(location); //on change sa position
-  }else{
-    marker = new google.maps.Marker({ //on créé le marqueur
-      position: location,
-      map: map
-    });
-  }
-  
-    set_lat_lng_input(location);
-    tbx_changed_value();*/
-    
+{   
     var latlong = location;
     var lat = latlong.lat();
     var long = latlong.lng();

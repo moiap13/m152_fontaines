@@ -108,14 +108,17 @@ Version : 2.0
                         <div class="line_map_footer"><span id="nom_rue"></span></div>
                         <div class="line_map_footer">
                             <form method="post" action="#" enctype="multipart/form-data">
-                                <div id="div_form">  
-                                    <div><input type="file" name="photo_fontaine" /></div>
-                                    <div>
-                                        <label>Nom fontaine : (facultatif)</label>
-                                        <input type="text" name="nom_fontaine" />
+                                <div id="div_form">
+                                    <div id="fildset">
+                                        <div id="titre">Ajout Photo</div>
+                                        <div><input type="file" name="photo_fontaine" /></div>
+                                        <div>
+                                            <label>Nom fontaine : (facultatif)</label>
+                                            <input type="text" name="nom_fontaine" />
+                                        </div>
                                     </div>
-                                    <div>
-                                        <input type="submit" value="Ajouter" name="btn_ajouter" />
+                                    <div id="div_btn_ajout_fontaine">
+                                        <input type="submit" value="Ajouter la fontaine" name="btn_ajouter" />
                                     </div>
                                 </div>
                                 <input type="hidden" name="tbx_Lat" value="" id="tbx_lat" />
