@@ -7,6 +7,7 @@ $bdd = connexion('M152_Fontaines', 'localhost', 'root', '');
 $liens[0] = "";
 $liens[1] = "";
 $liens[2] = "";
+$savedRayon = '500';
 
 if(isset($_SESSION["CONN"]) && $_SESSION["CONN"])
 {
@@ -73,7 +74,6 @@ Version : 2.0
                 <div class='mapFooter' style="height: 190px;">
                     <div class="line_map_footer"><input type="range" id="rayon_range" onchange="changeRayon();rangevalue.value=value + ' m'" value='<?php echo $savedRayon ?>' max="5000" min="500" step="100"></div>
                     <div id="rayon_display"><p>Rayon en mètres : <output id="rangevalue"><?php echo $savedRayon ?></output></p></div>
-                    <input class="Btn_Cal" type="button" value="Calculer l'itinéraire" onclick="javascript:calcRoute()">
                     <div class="line_map_footer"><span id="nb_fontaines"></span><br><span id="nom_rue"></span></div>
                     <?php echo $input_cache_mode; echo $input_cache_latlng; echo $input_cache_rayon;?>
                 </div>

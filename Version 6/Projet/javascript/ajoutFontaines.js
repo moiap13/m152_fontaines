@@ -5,6 +5,7 @@
 */
 //
 var fontaine_tmp;
+var zoom;
 
 function set_lat_lng_input(latlng)
 {
@@ -37,10 +38,11 @@ function tbx_changed_value(mode)
     _lng = tbx_tmp_lng.value;
     
     var pos = new google.maps.LatLng(_lat,_lng);
+    var zoom = map.getZoom();
     
     var mapOptions = {
-        //center: pos,
-        zoom: 18,
+        center: pos,
+        zoom: zoom,
         mapTypeId:google.maps.MapTypeId.HYBRID
     };
     //map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
