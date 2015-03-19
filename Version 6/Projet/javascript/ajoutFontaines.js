@@ -57,8 +57,6 @@ function tbx_changed_value(mode)
         icon     : "../../img/icon.png"
     });
     
-    
-    
     tbx_lat.value = _lat;
     tbx_lng.value = _lng;
 }

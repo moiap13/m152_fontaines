@@ -13,12 +13,20 @@ var pos = new google.maps.LatLng();
 var map;
 var monCercle;
 var mode = 0;
-var DEF_ZOOM = 13;
-/**
- * Instancie une nouvelle map en positionnant un marker sur la position courante du user
- * @param {type} position
- * @returns {google.maps.Map}
- */
+var DEF_ZOOM = 15;
+directionsDisplay = null;
+var array_test = new Array();
+
+function creatIniMarker(map_ini, position){
+var markerCurrentPosition = new google.maps.Marker({
+        map: map_ini,
+        position: position,
+        icon: "../../img/Marker.png"
+    });
+    
+    array_test.push(markerCurrentPosition);
+}
+
 function instantiateMapWithCurrentPos(position)  {
     
     pos =  new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
@@ -32,11 +40,8 @@ function instantiateMapWithCurrentPos(position)  {
     var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
     //marker sur notre position
-     var markerCurrentPosition = new google.maps.Marker({
-        map: map,
-        position: pos,
-        icon: "../../img/Marker.png"
-    });
+    creatIniMarker(map, pos);
+    
     return map;
 }
 
@@ -100,8 +105,6 @@ function initialize(mode)
            // codeLatLng(pos, map, 1);
             getAdressFromLatLngAndCreateMarker(pos,1);
             
-            
-          
         }, function(err) 
         {
             console.log( err.code + " " + err.message);
@@ -182,7 +185,7 @@ function showFontaineMarker(latlng, adresse, id_fontaine, photo, nom_photo){
             title	: "Fontaine",
             icon: "../../img/icon.png"
         });
-        
+    
     console.log(nom_photo);
     
     if(photo == 1)
@@ -212,6 +215,12 @@ function showFontaineMarker(latlng, adresse, id_fontaine, photo, nom_photo){
 
 
 function calcRoute(destination) {
+    
+  if (directionsDisplay !== null){
+    directionsDisplay.setMap(null);
+    directionsDisplay = null;
+    }
+    
    directionsDisplay = new google.maps.DirectionsRenderer();
    directionsDisplay.setMap(map);
    directionsService = new google.maps.DirectionsService();
