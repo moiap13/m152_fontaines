@@ -41,7 +41,6 @@ function tbx_changed_value(mode)
     var zoom = map.getZoom();
     
     var mapOptions = {
-        center: pos,
         zoom: zoom,
         mapTypeId:google.maps.MapTypeId.HYBRID
     };
