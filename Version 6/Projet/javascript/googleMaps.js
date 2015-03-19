@@ -73,7 +73,7 @@ function initialize(mode)
                     var click_latlng = event.latLng;
                     set_lat_lng_input(click_latlng);
                     fontaine_tmp.setMap(null);
-                    tbx_changed_value();
+                    tbx_changed_value(1);
                     
                 });
                 

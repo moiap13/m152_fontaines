@@ -39,13 +39,15 @@ function tbx_changed_value(mode)
     var pos = new google.maps.LatLng(_lat,_lng);
     
     var mapOptions = {
-        center: pos,
+        //center: pos,
         zoom: 18,
         mapTypeId:google.maps.MapTypeId.HYBRID
     };
     //map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
     map.setOptions(mapOptions);
-    map.setCenter(pos);
+    
+    if(mode != 1)
+        map.setCenter(pos);
     
     fontaine_tmp = new google.maps.Marker({
         map      : map,
